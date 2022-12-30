@@ -1,0 +1,64 @@
+package com.lirctek.loadboard.data.reqres
+
+class DriverObject {
+
+    var id: Long = 0
+    var driverId: Long = 0
+    var eLogCategory: Int = 0
+    var user: Int = 0
+    var firstName: String? = null
+    var lastName: String? = null
+    var phone: String? = null
+    var email: String? = null
+    var userName: String? = null
+    var password: String? = null
+    var company_Id: Int = 0
+    var companyName: String? = null
+    var address: String? = null
+    var carrierCity: String? = null
+    var carrierState: String? = null
+    var carrierZip: String? = null
+    var homeTerminalAddress: String? = null
+    var homeTerminalCity: String? = null
+    var homeTerminalState: String? = null
+    var homeTerminalZip: String? = null
+    var signature: String? = null
+    var exemptions: Int = 0
+    var cycleType_Id:Int = 0
+    var timeZone: String? = null
+    var secondaryCycleType: Int = 0
+    var secondaryTimeZone: String? = null
+    var cargoType: String? = null
+    var truckNumber: String? = null
+    var truck_Id: Int = 0
+    var server_Id:Int = 0
+    var trailerNumber: String? = null
+    var drivingLicense: String? = null
+    var dlIssuedState: String? = null
+    var eldManufacturer: String? = null
+    var periodStartingTime: String? = null
+    var dotNumber: String? = null
+    var eldId: String? = null
+    var lastSyncAt: String? = null
+    var updatedAt: String? = null
+    var isPremiumPlan: Int = 0
+    var isEld: Int = 0
+    var isTms: Int = 0
+    var hidePreTrip: Int = 0
+    var pingRate: Long = 0
+    var splitFullLoad: Int = 0
+    var isFullLoad: Int = 0
+    var isLTL: Int = 0
+    var syncRequired: Int = 0
+    var isTokenSynced = false
+    var isLoggedIn = false
+    var allowYardMove: Int = 0
+    var allowPC: Int = 0
+    var allowManualDrive: Int = 0
+    var eldDeviceType: String? = null
+    var eldSerialNumber: String? = null
+    var deviceType:String? =null
+    var eldAppVersion: Int = 0
+    var eldLoggedIn: String? = null
+    var eldLoggedOut: String? = null
+}
