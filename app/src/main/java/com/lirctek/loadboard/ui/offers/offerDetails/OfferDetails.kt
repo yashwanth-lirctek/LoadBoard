@@ -42,29 +42,56 @@ fun OfferDetails(navController: NavHostController, offerItem: OfferDataList) {
                 .padding(10.dp)
         ) {
             Row() {
-                Column(
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Previous Offer".uppercase(),
-                        fontFamily = fontFamily,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 14.sp,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-                    Spacer(modifier = Modifier.height(2.dp))
-                    Text(
-                        text = "$ ${offerItem.offeredAmount}",
-                        fontFamily = fontFamily,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 18.sp,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    OfferButtonUi("Edit Offer")
+                if (offerItem.offeredAmount == 0.0){
+                    Column(
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Previous Offer".uppercase(),
+                            fontFamily = fontFamily,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 14.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = " - ",
+                            fontFamily = fontFamily,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        OfferButtonUi("Place Offer")
+                    }
+                }else {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Previous Offer".uppercase(),
+                            fontFamily = fontFamily,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 14.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = "$ ${offerItem.offeredAmount}",
+                            fontFamily = fontFamily,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        OfferButtonUi("Edit Offer")
+                    }
                 }
                 Column(
                     modifier = Modifier.fillMaxWidth(1f),
