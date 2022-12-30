@@ -9,8 +9,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,11 +22,8 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.lirctek.loadboard.extensions.fontFamily
-import com.lirctek.loadboard.ui.noInternet.NoInternetScreen
 import com.lirctek.loadboard.ui.offers.active.ActiveOffers
 import com.lirctek.loadboard.ui.offers.inactive.InActiveOffers
-import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsShimmerUi
-import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsUi
 import com.lirctek.loadboard.ui.theme.ToolBarBackColor
 import com.lirctek.loadboard.ui.toolbar.HomeOtherToolBar
 import kotlinx.coroutines.launch
@@ -84,9 +79,9 @@ fun OffersUi(navController: NavController) {
                             .background(color = Color.White)
                     ) { page ->
                         if (page == 0){
-                            ActiveOffers()
+                            ActiveOffers(navController)
                         }else if (page == 1){
-                            InActiveOffers()
+                            InActiveOffers(navController)
                         }
                     }
                 }

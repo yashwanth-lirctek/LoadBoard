@@ -1,6 +1,7 @@
 package com.lirctek.loadboard.ui.offers.offersCommonUi
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lirctek.loadboard.data.reqres.OfferDataList
@@ -25,7 +27,14 @@ import com.lirctek.loadboard.extensions.fontFamily
 import com.lirctek.loadboard.ui.theme.CardBackgroundColor
 
 @Composable
-fun OfferItemsUi(item: OfferDataList, isActive: Boolean) {
+fun OfferItemsUi(
+    item: OfferDataList,
+    isActive: Boolean,
+    onLayoutClick :(item: OfferDataList) -> Unit,
+    onAcceptOffer :(item: OfferDataList) -> Unit,
+    onPlaceOffer :(item: OfferDataList) -> Unit,
+    onYourOffer :(item: OfferDataList) -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,12 +47,16 @@ fun OfferItemsUi(item: OfferDataList, isActive: Boolean) {
             backgroundColor = CardBackgroundColor,
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable {
+                    onLayoutClick(item)
+                }
         ) {
 
             Column(
                 modifier = Modifier.padding(10.dp)
             ) {
-                Row {
+                Row(
+                ) {
                     Card(
                         shape = RoundedCornerShape(10.dp),
                         elevation = 0.dp,
@@ -84,9 +97,44 @@ fun OfferItemsUi(item: OfferDataList, isActive: Boolean) {
                 BookAndOfferUi(item)
                 if (isActive) {
                     Spacer(modifier = Modifier.height(5.dp))
-                    YourAndOfferUi(item)
+                    YourAndOfferUi(
+                        item = item,
+                        onAcceptOffer = {
+                            onAcceptOffer(it)
+                        },
+                        onPlaceOffer = {
+                            onPlaceOffer(it)
+                        },
+                        onYourOffer = {
+                            onYourOffer(it)
+                        }
+                    )
                 }
 
+            }
+        }
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Card(
+                shape = RoundedCornerShape(10.dp),
+                elevation = 2.dp,
+                backgroundColor = Color.White,
+                modifier = Modifier
+                    .width(100.dp)
+            ){
+                Text(
+                    text = if (item.loadNumber != null) item.loadNumber!! else "-",
+                    fontFamily = fontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colors.primary,
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(horizontal = 10.dp, vertical = 3.dp)
+                )
             }
         }
 
@@ -94,25 +142,45 @@ fun OfferItemsUi(item: OfferDataList, isActive: Boolean) {
 }
 
 @Composable
-fun YourAndOfferUi(item: OfferDataList){
+fun YourAndOfferUi(
+    item: OfferDataList,
+    onAcceptOffer :(item: OfferDataList) -> Unit,
+    onPlaceOffer :(item: OfferDataList) -> Unit,
+    onYourOffer :(item: OfferDataList) -> Unit
+){
     Box(
         modifier = Modifier.fillMaxWidth()
     ) {
         if (item.offeredAmount == 0.0){
-            Column{
-                OfferButtonUi(text = "Place Offer", icon = Icons.Outlined.AdsClick)
+            Column (
+            ){
+                OfferButtonUi(text = "Place Offer", icon = Icons.Outlined.AdsClick,
+                    modifier = Modifier
+                        .clickable {
+                            onPlaceOffer(item)
+                        })
             }
         }else {
-            Column {
-                OfferButtonUi(text = "Your Offer", value = item.offeredAmount.toString(), Icons.Outlined.EditNote)
+            Column(
+            ) {
+                OfferButtonUi(text = "Your Offer", value = item.offeredAmount.toString(), Icons.Outlined.EditNote,
+                    modifier = Modifier
+                        .clickable {
+                            onYourOffer(item)
+                        })
             }
         }
 
         Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.End
+            horizontalAlignment = Alignment.End,
+            modifier = Modifier
+                .fillMaxWidth()
         ){
-            OfferButtonUi(text = "Accept Offer", icon = Icons.Outlined.AdsClick)
+            OfferButtonUi(text = "Accept Offer", icon = Icons.Outlined.AdsClick,
+                modifier = Modifier
+                    .clickable {
+                        onAcceptOffer(item)
+                    })
         }
     }
 }
@@ -121,13 +189,14 @@ fun YourAndOfferUi(item: OfferDataList){
 fun OfferButtonUi(
     text: String,
     value: String? = null,
-    icon: ImageVector? = null
+    icon: ImageVector? = null,
+    modifier: Modifier
 ){
 
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colors.primary,
@@ -150,14 +219,12 @@ fun OfferButtonUi(
             fontSize = 14.sp,
             color = MaterialTheme.colors.primary
         )
-        if (value != null) {
-            Text(
-                text = " : $ $value",
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp
-            )
-        }
+        Text(
+            text = if (value != null) " : $ $value" else "-",
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 14.sp
+        )
     }
 
 }
@@ -277,14 +344,12 @@ fun StopUi(
                 fontWeight = FontWeight.Normal,
                 fontSize = 12.sp
             )
-            if (location != null) {
-                Text(
-                    text = location,
-                    fontFamily = fontFamily,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
-                )
-            }
+            Text(
+                text = location ?: "-",
+                fontFamily = fontFamily,
+                fontWeight = FontWeight.Medium,
+                fontSize = 16.sp
+            )
         }
         Column(
             modifier = Modifier.fillMaxWidth(),

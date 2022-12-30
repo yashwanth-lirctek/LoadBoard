@@ -43,7 +43,7 @@ fun MainUi(mainNavController: NavController){
         }
     ) { paddingValues ->
         Column {
-            HomeNavigation(navController)
+            HomeNavigation(navController, mainNavController)
         }
     }
     
