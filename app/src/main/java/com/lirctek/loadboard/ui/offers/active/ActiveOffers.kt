@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -19,17 +20,14 @@ import com.lirctek.loadboard.ui.noInternet.NoInternetScreen
 import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsShimmerUi
 import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsUi
 
-private lateinit var connectivityObserver: ConnectivityObserver
-
 @Composable
-fun ActiveOffers(){
+fun ActiveOffers() {
 
-    connectivityObserver = NetworkConnectivityObserver(LocalContext.current.applicationContext)
-    val status by connectivityObserver.observe().collectAsState(
+    val viewModel = hiltViewModel<OffersActiveViewModel>()
+    val status by NetworkConnectivityObserver(LocalContext.current.applicationContext).observe().collectAsState(
         initial = ConnectivityObserver.Status.Unavailable
     )
 
-    val viewModel = hiltViewModel<OffersActiveViewModel>()
     val state = viewModel.state
 
     if (state.offerDataList.isNotEmpty()){

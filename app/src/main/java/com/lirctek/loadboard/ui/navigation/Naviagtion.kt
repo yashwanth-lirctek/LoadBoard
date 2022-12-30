@@ -1,10 +1,7 @@
 package com.lirctek.loadboard.ui.navigation
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,7 +14,6 @@ import com.lirctek.loadboard.ui.offers.OffersUi
 import com.lirctek.loadboard.ui.payments.PaymentsUi
 import com.lirctek.loadboard.ui.settings.SettingsUi
 import com.lirctek.loadboard.ui.splash.SplashScreen
-import com.lirctek.loadboard.ui.toolbar.HomeToolBar
 
 @Composable
 fun Navigation() {
