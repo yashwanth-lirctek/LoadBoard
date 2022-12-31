@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lirctek.loadboard.data.reqres.OfferDataList
 import com.lirctek.loadboard.extensions.fontFamily
+import com.lirctek.loadboard.ui.payments.paymentsUi.ListLocationIconsUi
 import com.lirctek.loadboard.ui.theme.CardBackgroundColor
 
 @Composable
@@ -64,28 +65,7 @@ fun OfferItemsUi(
                     ) {
                         Box(
                             modifier = Modifier.padding(horizontal = 2.dp, vertical = 5.dp)) {
-                            Column() {
-                                Icon(
-                                    imageVector = Icons.Filled.Pin,
-                                    contentDescription = null,
-                                    tint = Color.White,
-                                )
-                                Icon(
-                                    imageVector = Icons.Filled.MoreVert,
-                                    contentDescription = null,
-                                    tint = Color.White
-                                )
-                                Icon(
-                                    imageVector = Icons.Filled.MoreVert,
-                                    contentDescription = null,
-                                    tint = Color.White
-                                )
-                                Icon(
-                                    imageVector = Icons.Filled.WhereToVote,
-                                    contentDescription = null,
-                                    tint = Color.White
-                                )
-                            }
+                            ListLocationIconsUi()
                         }
                     }
                     Spacer(modifier = Modifier.width(10.dp))

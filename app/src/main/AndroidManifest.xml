@@ -20,7 +20,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.lirctek.loadboard.MainActivity"
+            android:name="com.lirctek.loadboard.ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.LoadBoard">

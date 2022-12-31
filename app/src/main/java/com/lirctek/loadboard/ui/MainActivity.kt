@@ -1,4 +1,4 @@
-package com.lirctek.loadboard
+package com.lirctek.loadboard.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

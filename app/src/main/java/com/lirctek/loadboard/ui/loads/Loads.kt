@@ -26,10 +26,13 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.lirctek.loadboard.extensions.fontFamily
+import com.lirctek.loadboard.ui.loads.available.AvailableUi
+import com.lirctek.loadboard.ui.loads.delivered.DeliveredUi
+import com.lirctek.loadboard.ui.loads.dispatched.DispatchedUi
+import com.lirctek.loadboard.ui.loads.inTransit.InTransitUi
 import com.lirctek.loadboard.ui.theme.ToolBarBackColor
 import com.lirctek.loadboard.ui.toolbar.HomeOtherToolBar
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -78,7 +81,7 @@ fun LoadsUi(navController: NavController) {
                 }
             }
 
-            Column {
+            Box(modifier = Modifier.fillMaxSize()){
                 HorizontalPager(
                     count = tabItems.size,
                     state = pagerState,
@@ -86,6 +89,15 @@ fun LoadsUi(navController: NavController) {
                         .fillMaxSize()
                         .background(color = Color.White)
                 ) { page ->
+                    if (page == 0){
+                        AvailableUi(navController = navController)
+                    }else if (page == 1){
+                        DispatchedUi(navController = navController)
+                    }else if (page == 2){
+                        DeliveredUi(navController = navController)
+                    }else if (page == 3){
+                        InTransitUi(navController = navController)
+                    }
                     if (pagerState.currentPage == 3 || pagerState.currentPage == 2){
                         LaunchedEffect(key1 = scrollState){
                             scrollState.scrollBy(100f)
@@ -96,7 +108,6 @@ fun LoadsUi(navController: NavController) {
                             scrollState.scrollBy(-100f)
                         }
                     }
-                    Text(text = tabItems[page])
                 }
             }
         }

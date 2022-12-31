@@ -18,6 +18,7 @@ import com.lirctek.loadboard.ui.main.MainUi
 import com.lirctek.loadboard.ui.offers.OffersUi
 import com.lirctek.loadboard.ui.offers.offerDetails.OfferDetails
 import com.lirctek.loadboard.ui.payments.PaymentsUi
+import com.lirctek.loadboard.ui.payments.paid.details.PaidDetailsUi
 import com.lirctek.loadboard.ui.settings.SettingsUi
 import com.lirctek.loadboard.ui.splash.SplashScreen
 
@@ -45,6 +46,9 @@ fun Navigation() {
                 OfferDetails(navController, it)
             }
         }
+        composable("main/payments/paid/details"){
+            PaidDetailsUi()
+        }
     }
 }
 
@@ -52,7 +56,7 @@ fun Navigation() {
 fun HomeNavigation(navController: NavHostController, mainNavController: NavController) {
     NavHost(navController = navController, startDestination = "main/home"){
         composable("main/home"){
-            HomeUi(navController = navController)
+            HomeUi(navController = mainNavController)
         }
         composable("main/settings"){
             SettingsUi(navController = navController)
@@ -61,10 +65,10 @@ fun HomeNavigation(navController: NavHostController, mainNavController: NavContr
             OffersUi(navController = mainNavController)
         }
         composable("main/loads"){
-            LoadsUi(navController = navController)
+            LoadsUi(navController = mainNavController)
         }
         composable("main/payments"){
-            PaymentsUi(navController = navController)
+            PaymentsUi(navController = mainNavController)
         }
     }
 }

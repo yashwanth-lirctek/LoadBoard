@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -21,8 +22,11 @@ import com.lirctek.loadboard.ui.offers.active.InitShimmer
 import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsShimmerUi
 import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsUi
 
+var isFirstTimeShimmer: Boolean = true
 @Composable
 fun InActiveOffers(navController: NavController) {
+
+    LaunchedEffect(Unit){ isFirstTimeShimmer = true }
 
     val viewModel = hiltViewModel<OffersInActiveViewModel>()
     val status by NetworkConnectivityObserver(LocalContext.current.applicationContext).observe().collectAsState(
@@ -45,6 +49,7 @@ fun InActiveOffers(navController: NavController) {
         SwipeRefresh(
             state = rememberSwipeRefreshState(refreshing),
             onRefresh = { viewModel.refreshItems("InActive") },
+            modifier = Modifier.fillMaxSize()
         ) {
             if (state.offerDataList.isEmpty() && state.error != null){
                 //Show Empty List
@@ -94,7 +99,6 @@ fun InActiveOffers(navController: NavController) {
 
 }
 
-var isFirstTimeShimmer: Boolean = true
 @Composable
 fun InitShimmer(b: Boolean) {
     if (b && isFirstTimeShimmer) {

@@ -22,8 +22,12 @@ import com.lirctek.loadboard.ui.offers.dialogs.AcceptOfferDialog
 import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsShimmerUi
 import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsUi
 
+var isFirstTimeShimmer: Boolean = true
+
 @Composable
 fun ActiveOffers(navController: NavController) {
+
+    LaunchedEffect(Unit){ isFirstTimeShimmer = true }
 
     val viewModel = hiltViewModel<OffersActiveViewModel>()
     val status by NetworkConnectivityObserver(LocalContext.current.applicationContext).observe().collectAsState(
@@ -48,6 +52,7 @@ fun ActiveOffers(navController: NavController) {
         SwipeRefresh(
             state = rememberSwipeRefreshState(refreshing),
             onRefresh = { viewModel.refreshItems("Active") },
+            modifier = Modifier.fillMaxSize()
         ) {
             if (state.offerDataList.isEmpty() && state.error != null){
                 //Show Empty List
@@ -78,7 +83,7 @@ fun ActiveOffers(navController: NavController) {
                         if (i >= state.offerDataList.size - 1 && !state.endReached && !state.isLoading) {
                             viewModel.loadNextItems("Active")
                         }
-                        if (i == state.offerDataList.size - 1) {
+                        if (i == state.offerDataList.size - 1 && !state.isLoading) {
                             Spacer(modifier = Modifier.height(100.dp))
                         }
                     }
@@ -87,7 +92,7 @@ fun ActiveOffers(navController: NavController) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(10.dp),
+                                    .padding(start = 10.dp, end = 10.dp, top = 20.dp, bottom = 80.dp),
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 CircularProgressIndicator()
@@ -100,12 +105,12 @@ fun ActiveOffers(navController: NavController) {
     }
 }
 
-var isFirstTimeShimmer: Boolean = true
 @Composable
 fun InitShimmer(b: Boolean) {
     if (b && isFirstTimeShimmer) {
         isFirstTimeShimmer = false
         Column {
+            Spacer(modifier = Modifier.height(5.dp))
             OfferItemsShimmerUi()
             OfferItemsShimmerUi()
             OfferItemsShimmerUi()

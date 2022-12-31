@@ -21,6 +21,12 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.lirctek.loadboard.extensions.fontFamily
+import com.lirctek.loadboard.ui.loads.available.AvailableUi
+import com.lirctek.loadboard.ui.loads.delivered.DeliveredUi
+import com.lirctek.loadboard.ui.loads.dispatched.DispatchedUi
+import com.lirctek.loadboard.ui.payments.invoiced.InvoiceUi
+import com.lirctek.loadboard.ui.payments.notBilled.NotBilledUi
+import com.lirctek.loadboard.ui.payments.paid.PaidUi
 import com.lirctek.loadboard.ui.theme.ToolBarBackColor
 import com.lirctek.loadboard.ui.toolbar.HomeOtherToolBar
 import kotlinx.coroutines.launch
@@ -74,7 +80,13 @@ fun PaymentsUi(navController: NavController) {
                         .fillMaxSize()
                         .background(color = Color.White)
                 ) { page ->
-                    Text(text = tabItems[page])
+                    if (page == 0){
+                        NotBilledUi(navController)
+                    }else if (page == 1){
+                        InvoiceUi(navController = navController)
+                    }else if (page == 2){
+                        PaidUi(navController = navController)
+                    }
                 }
             }
         }

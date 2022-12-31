@@ -26,6 +26,7 @@ import com.lirctek.loadboard.ui.dialog.FinalScoreDialog
 import com.lirctek.loadboard.ui.noData.NoDataScreen
 import com.lirctek.loadboard.ui.offers.dialogs.AcceptOfferDialog
 import com.lirctek.loadboard.ui.offers.offersCommonUi.LocationUi
+import com.lirctek.loadboard.ui.payments.paymentsUi.ListLocationIconsUi
 import com.lirctek.loadboard.ui.toolbar.HomeOtherToolBar
 import com.lirctek.loadboard.ui.toolbar.OffersToolBar
 import kotlinx.coroutines.launch
@@ -149,28 +150,7 @@ fun StopDetailsUi(offerItem: OfferDataList){
         ) {
             Box(
                 modifier = Modifier.padding(horizontal = 2.dp, vertical = 5.dp)) {
-                Column() {
-                    Icon(
-                        imageVector = Icons.Filled.Pin,
-                        contentDescription = null,
-                        tint = Color.White,
-                    )
-                    Icon(
-                        imageVector = Icons.Filled.MoreVert,
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                    Icon(
-                        imageVector = Icons.Filled.MoreVert,
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                    Icon(
-                        imageVector = Icons.Filled.WhereToVote,
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                }
+                ListLocationIconsUi()
             }
         }
         Spacer(modifier = Modifier.width(10.dp))
