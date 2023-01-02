@@ -43,5 +43,9 @@ class ApiHelperImpl @Inject constructor(
         return safeApiCall { apiServiceEld.getOffers(header, request).body()!!}
     }
 
+    override suspend fun getLoadBoardList(header: String, request: LoadBoardListRequest): NetworkResponse<List<LoadBoardDataList>>{
+        return safeApiCall { apiServiceEld.getLoadBoardList(header, request).body()!! }
+    }
+
 
 }

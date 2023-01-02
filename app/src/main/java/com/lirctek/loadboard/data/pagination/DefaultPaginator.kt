@@ -1,33 +1,36 @@
 package com.lirctek.loadboard.data.pagination
 
+import android.util.Log
+import com.google.gson.Gson
 
-class DefaultPaginator<Key, OfferDataList>(
+
+class DefaultPaginator<Key, DataList>(
     private val initialKey: Key,
     private val resetValues: (Key) -> Unit,
     private inline val onDataUpdated: (Boolean) -> Unit,
-    private inline val onRequest: suspend (nextKey: Key, status: String) -> Result<List<OfferDataList>>,
-    private inline val getNextKey: suspend (List<OfferDataList>) -> Key,
+    private inline val onRequest: suspend (nextKey: Key) -> Result<List<DataList>>,
+    private inline val getNextKey: suspend (List<DataList>) -> Key,
     private inline val onError: suspend (Throwable?) -> Unit,
-    private inline val onSuccess: suspend (offerDataList: List<OfferDataList>, newKey: Key) -> Unit
-) : Paginator<Key, OfferDataList> {
+    private inline val onSuccess: suspend (dataList: List<DataList>, newKey: Key) -> Unit
+) : Paginator<Key, DataList> {
 
     private var currentKey: Key = initialKey
     private var isMakingRequest = false
 
-    override suspend fun loadNextItems(status: String) {
+    override suspend fun loadNextItems() {
         if (isMakingRequest) return
 
         isMakingRequest = true
         onDataUpdated(true)
-        val result = onRequest(currentKey, status)
+        val result = onRequest(currentKey)
         isMakingRequest = false
-        val offerDataList = result.getOrElse {
+        val dataList = result.getOrElse {
             onError(it)
             onDataUpdated(false)
             return
         }
-        currentKey = getNextKey(offerDataList)
-        onSuccess(offerDataList, currentKey)
+        currentKey = getNextKey(dataList)
+        onSuccess(dataList, currentKey)
         onDataUpdated(false)
 
     }

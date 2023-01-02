@@ -18,12 +18,9 @@ import com.lirctek.loadboard.ui.loads.LoadsAvailableViewModel
 import com.lirctek.loadboard.ui.loads.loadsUi.LoadsItemUi
 import com.lirctek.loadboard.ui.noInternet.NoInternetScreen
 import com.lirctek.loadboard.ui.offers.active.InitShimmer
-import com.lirctek.loadboard.ui.offers.active.isFirstTimeShimmer
 
 @Composable
 fun DispatchedUi(navController: NavController) {
-
-    LaunchedEffect(Unit){ isFirstTimeShimmer = true }
 
     val viewModel = hiltViewModel<LoadsDispatchedViewModel>()
     val status by NetworkConnectivityObserver(LocalContext.current.applicationContext).observe().collectAsState(

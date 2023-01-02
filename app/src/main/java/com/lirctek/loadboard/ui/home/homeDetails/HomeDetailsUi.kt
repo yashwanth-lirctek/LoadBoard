@@ -1,4 +1,4 @@
-package com.lirctek.loadboard.ui.offers.offerDetails
+package com.lirctek.loadboard.ui.home.homeDetails
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -13,24 +13,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.lirctek.loadboard.data.reqres.OfferDataList
+import com.lirctek.loadboard.data.reqres.LoadBoardDataList
 import com.lirctek.loadboard.extensions.fontFamily
-import com.lirctek.loadboard.ui.offers.dialogs.AcceptOfferDetailDialog
-import com.lirctek.loadboard.ui.offers.offersCommonUi.LocationUi
+import com.lirctek.loadboard.ui.home.dialogs.AcceptOfferHomeDialog
+import com.lirctek.loadboard.ui.offers.offersCommonUi.StopUi
 import com.lirctek.loadboard.ui.payments.paymentsUi.ListLocationIconsUi
-import com.lirctek.loadboard.ui.toolbar.OffersToolBar
+import com.lirctek.loadboard.ui.toolbar.HomeDetailsToolBar
 
 @Composable
-fun OfferDetails(navController: NavHostController, offerItem: OfferDataList) {
-
+fun HomeDetailsUi(navController: NavHostController, loadBoardDataList: LoadBoardDataList) {
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope()
 
     var openDialog  by remember { mutableStateOf(false) }
-    AcceptOfferDetailDialog(
+    AcceptOfferHomeDialog(
         openDialog = openDialog,
-        offerDataList = offerItem,
+        offerDataList = loadBoardDataList,
         onAcceptOffer = {
             openDialog = false
         },
@@ -41,7 +40,7 @@ fun OfferDetails(navController: NavHostController, offerItem: OfferDataList) {
 
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
-            OffersToolBar(offerItem)
+            HomeDetailsToolBar(loadBoardDataList)
         },
         scaffoldState = scaffoldState
     ) { paddingValues ->
@@ -67,14 +66,14 @@ fun OfferDetails(navController: NavHostController, offerItem: OfferDataList) {
             Spacer(modifier = Modifier.height(5.dp))
             Divider(color = Color.Gray, thickness = 1.dp)
             Spacer(modifier = Modifier.height(10.dp))
-            StopDetailsUi(offerItem)
+            StopDetailsUi(loadBoardDataList)
             Spacer(modifier = Modifier.height(10.dp))
-            LoadDetailsUI(offerItem)
+            LoadDetailsUI(loadBoardDataList)
             Spacer(modifier = Modifier.height(15.dp))
             Divider(color = Color.Gray, thickness = 1.dp)
             Spacer(modifier = Modifier.height(15.dp))
             ButtonsLayout(
-                offerItem = offerItem,
+                offerItem = loadBoardDataList,
                 onPlaceOffer = {
 
                 },
@@ -91,7 +90,7 @@ fun OfferDetails(navController: NavHostController, offerItem: OfferDataList) {
 }
 
 @Composable
-fun StopDetailsUi(offerItem: OfferDataList){
+fun StopDetailsUi(offerItem: LoadBoardDataList){
     Row(
     ) {
         Card(
@@ -110,7 +109,26 @@ fun StopDetailsUi(offerItem: OfferDataList){
 }
 
 @Composable
-fun LoadDetailsUI(offerItem: OfferDataList){
+fun LocationUi(item: LoadBoardDataList) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(105.dp)
+    ){
+        Column() {
+            StopUi(type = "Pick Up", location = item.Pickup, time = item.PickupFromDate)
+        }
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            StopUi(type = "Delivery", location = item.Delivery, time = item.DeliveryFromDate)
+        }
+    }
+}
+
+@Composable
+fun LoadDetailsUI(offerItem: LoadBoardDataList){
     Column {
         Box(
             modifier = Modifier.fillMaxWidth()
@@ -123,7 +141,7 @@ fun LoadDetailsUI(offerItem: OfferDataList){
                     fontSize = 14.sp
                 )
                 Text(
-                    text = if (offerItem.customerName != null) offerItem.customerName!! else "-",
+                    text = if (offerItem.CustomerName != null) offerItem.CustomerName!! else "-",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
                     fontSize = 16.sp
@@ -140,7 +158,7 @@ fun LoadDetailsUI(offerItem: OfferDataList){
                     fontSize = 14.sp
                 )
                 Text(
-                    text = if (offerItem.customerPhone != null) offerItem.customerPhone!! else "-",
+                    text = if (offerItem.CustomerPhone != null) offerItem.CustomerPhone!! else "-",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
                     fontSize = 16.sp
@@ -159,7 +177,7 @@ fun LoadDetailsUI(offerItem: OfferDataList){
                     fontSize = 14.sp
                 )
                 Text(
-                    text = if (offerItem.equipment != null) offerItem.equipment!! else "-",
+                    text = if (offerItem.Equipment != null) offerItem.Equipment!! else "-",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
                     fontSize = 16.sp
@@ -195,7 +213,7 @@ fun LoadDetailsUI(offerItem: OfferDataList){
                     fontSize = 14.sp
                 )
                 Text(
-                    text = offerItem.totalMiles.toString(),
+                    text = offerItem.TotalMiles.toString(),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
                     fontSize = 16.sp
@@ -260,13 +278,13 @@ fun LoadDetailsUI(offerItem: OfferDataList){
 
 @Composable
 fun ButtonsLayout(
-    offerItem: OfferDataList,
-    onPlaceOffer: (offerItem: OfferDataList) -> Unit,
-    onEditOffer: (offerItem: OfferDataList) -> Unit,
-    onAcceptOffer: (offerItem: OfferDataList) -> Unit
+    offerItem: LoadBoardDataList,
+    onPlaceOffer: (offerItem: LoadBoardDataList) -> Unit,
+    onEditOffer: (offerItem: LoadBoardDataList) -> Unit,
+    onAcceptOffer: (offerItem: LoadBoardDataList) -> Unit
 ){
     Row() {
-        if (offerItem.offeredAmount == 0.0){
+        if (offerItem.OfferedAmount == 0.0){
             Column(
                 modifier = Modifier.fillMaxWidth(0.5f),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -310,7 +328,7 @@ fun ButtonsLayout(
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "$ ${offerItem.offeredAmount}",
+                    text = "$ ${offerItem.OfferedAmount}",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
@@ -339,7 +357,7 @@ fun ButtonsLayout(
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
-                text = "$ ${offerItem.bookNowAmount}",
+                text = "$ ${offerItem.BookNowAmount}",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 18.sp,
@@ -349,9 +367,9 @@ fun ButtonsLayout(
             Spacer(modifier = Modifier.height(6.dp))
             OfferButtonUi("Accept Offer",
                 modifier = Modifier
-                .clickable {
-                    onAcceptOffer(offerItem)
-                })
+                    .clickable {
+                        onAcceptOffer(offerItem)
+                    })
         }
     }
 }
@@ -380,5 +398,4 @@ fun OfferButtonUi(
             color = MaterialTheme.colors.primary
         )
     }
-
 }

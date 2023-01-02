@@ -34,8 +34,8 @@ class PaidViewModel @Inject constructor(
         onDataUpdated = {
             state = state.copy(isLoading = it)
         },
-        onRequest = { nextPage, status ->
-            repository.getOffers(nextPage, 1, status)
+        onRequest = { nextPage ->
+            repository.getOffers(nextPage, 1, "Active")
         },
         getNextKey = {
             state.page + 1

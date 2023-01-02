@@ -15,4 +15,7 @@ interface ApiService {
     @POST(ApiEndpoint.GET_OFFERS)
     suspend fun getOffers(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: OffersRequest): Response<OffersResponse>
 
+    @POST(ApiEndpoint.LOAD_BOARD_LIST)
+    suspend fun getLoadBoardList(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: LoadBoardListRequest): Response<List<LoadBoardDataList>>
+
 }

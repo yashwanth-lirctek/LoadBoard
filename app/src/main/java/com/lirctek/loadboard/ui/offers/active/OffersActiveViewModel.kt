@@ -35,11 +35,11 @@ class OffersActiveViewModel @Inject constructor(
         onDataUpdated = {
             state = state.copy(isLoading = it)
         },
-        onRequest = { nextPage, status ->
-            repository.getOffers(nextPage, 1, status)
+        onRequest = { nextPage ->
+            repository.getOffers(nextPage, 10, "Active")
         },
         getNextKey = {
-            state.page + 1
+            state.page + 10
         },
         onError = {
             isRefreshing.value = false
@@ -48,31 +48,33 @@ class OffersActiveViewModel @Inject constructor(
         onSuccess = { offerData, newKey ->
             isRefreshing.value = false
             val newList = state.offerDataList + offerData
+            val error = if (state.offerDataList.isEmpty() && offerData.isEmpty()) "No Data" else null
             state = state.copy(
                 offerDataList = newList,
                 page = newKey,
                 endReached = offerData.isEmpty(),
-                isLoading = offerData.isNotEmpty()
+                isLoading = offerData.isNotEmpty(),
+                error = error
             )
         }
     )
 
     init {
         paginator.reset()
-        loadNextItems("Active")
+        loadNextItems()
     }
 
-    fun loadNextItems(status: String){
+    fun loadNextItems(){
         viewModelScope.launch {
-            paginator.loadNextItems(status)
+            paginator.loadNextItems()
         }
     }
 
-    fun refreshItems(status: String){
+    fun refreshItems(){
         viewModelScope.launch {
             isRefreshing.value = true
             paginator.reset()
-            paginator.loadNextItems(status)
+            paginator.loadNextItems()
         }
     }
 

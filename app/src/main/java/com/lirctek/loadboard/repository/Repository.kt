@@ -26,7 +26,6 @@ class Repository @Inject constructor(
             pageSize = pageSize,
             status = status
         )
-        Log.e("OFFERS_LIST", Gson().toJson(offersRequest))
         val response = apiHelper.getOffers(getNewToken(), offersRequest)
         when (response) {
             is NetworkResponse.Success -> {
@@ -42,6 +41,36 @@ class Repository @Inject constructor(
         }
     }
 
+    suspend fun getLoadBoardList(index: Int, pageSize: Int): Result<List<LoadBoardDataList>>{
+        val loadBoardListRequest = LoadBoardListRequest(
+            CustomerName = null,
+            EquipmentType = null,
+            FromCity = null,
+            FromDate = null,
+            FromState = null,
+            LoadNumber = null,
+            SortBy = null,
+            SortOrder = null,
+            ToCity = null,
+            ToDate = null,
+            ToState = null,
+            Index = index,
+            PageSize = pageSize,
+        )
+        val response = apiHelper.getLoadBoardList(getToken(), loadBoardListRequest)
+        when (response){
+            is NetworkResponse.Success -> {
+                if (response.body.isNotEmpty()) {
+                    return Result.success(response.body)
+                } else {
+                    return Result.success(emptyList())
+                }
+            }
+            is NetworkResponse.Error -> {
+                return Result.failure(TestException("Unable to get data please try again"))
+            }
+        }
+    }
 
     fun getToken(): String {
         return ("Bearer " + Preferences.getAppPref().token)

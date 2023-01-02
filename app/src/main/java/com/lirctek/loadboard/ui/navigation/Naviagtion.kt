@@ -10,8 +10,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.gson.Gson
+import com.lirctek.loadboard.data.reqres.LoadBoardDataList
 import com.lirctek.loadboard.data.reqres.OfferDataList
 import com.lirctek.loadboard.ui.home.HomeUi
+import com.lirctek.loadboard.ui.home.homeDetails.HomeDetailsUi
 import com.lirctek.loadboard.ui.loads.LoadsUi
 import com.lirctek.loadboard.ui.login.LoginScreen
 import com.lirctek.loadboard.ui.main.MainUi
@@ -38,12 +40,23 @@ fun Navigation() {
         composable("main/offers/details/{offersList}",
             arguments = listOf(
                 navArgument("offersList") {
-                    type = AssetParamType()
+                    type = AssetParamTypeOffers()
                 }
             )){
             val offerItem = it.arguments?.getParcelable<OfferDataList>("offersList")
             offerItem?.let {
                 OfferDetails(navController, it)
+            }
+        }
+        composable("main/home/details/{dataList}",
+            arguments = listOf(
+                navArgument("dataList") {
+                    type = AssetParamTypeHome()
+                }
+            )){
+            val offerItem = it.arguments?.getParcelable<LoadBoardDataList>("dataList")
+            offerItem?.let {
+                HomeDetailsUi(navController, it)
             }
         }
         composable("main/payments/paid/details"){
@@ -73,7 +86,7 @@ fun HomeNavigation(navController: NavHostController, mainNavController: NavContr
     }
 }
 
-class AssetParamType : NavType<OfferDataList>(isNullableAllowed = false) {
+class AssetParamTypeOffers : NavType<OfferDataList>(isNullableAllowed = false) {
     override fun get(bundle: Bundle, key: String): OfferDataList? {
         return bundle.getParcelable(key)
     }
@@ -83,6 +96,20 @@ class AssetParamType : NavType<OfferDataList>(isNullableAllowed = false) {
     }
 
     override fun put(bundle: Bundle, key: String, value: OfferDataList) {
+        bundle.putParcelable(key, value)
+    }
+}
+
+class AssetParamTypeHome : NavType<LoadBoardDataList>(isNullableAllowed = false) {
+    override fun get(bundle: Bundle, key: String): LoadBoardDataList? {
+        return bundle.getParcelable(key)
+    }
+
+    override fun parseValue(value: String): LoadBoardDataList {
+        return Gson().fromJson(value, LoadBoardDataList::class.java)
+    }
+
+    override fun put(bundle: Bundle, key: String, value: LoadBoardDataList) {
         bundle.putParcelable(key, value)
     }
 }

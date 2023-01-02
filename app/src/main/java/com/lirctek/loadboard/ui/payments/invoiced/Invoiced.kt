@@ -21,13 +21,11 @@ import com.lirctek.loadboard.ui.loads.inTransit.LoadsInTransitViewModel
 import com.lirctek.loadboard.ui.loads.loadsUi.LoadsItemUi
 import com.lirctek.loadboard.ui.noInternet.NoInternetScreen
 import com.lirctek.loadboard.ui.offers.active.InitShimmer
-import com.lirctek.loadboard.ui.offers.active.isFirstTimeShimmer
 import com.lirctek.loadboard.ui.payments.PaymentsConstants
 import com.lirctek.loadboard.ui.payments.paymentsUi.PaymentsBilledAndInvoicedUi
 
 @Composable
 fun InvoiceUi(navController: NavController){
-    LaunchedEffect(Unit){ isFirstTimeShimmer = true }
 
     val viewModel = hiltViewModel<InvoicedViewModel>()
     val status by NetworkConnectivityObserver(LocalContext.current.applicationContext).observe().collectAsState(

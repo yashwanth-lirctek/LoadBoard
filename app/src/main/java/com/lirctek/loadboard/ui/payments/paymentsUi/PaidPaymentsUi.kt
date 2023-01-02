@@ -103,6 +103,7 @@ fun PaidMiddleUi(text: String, amount : String, type: String) {
             fontFamily = fontFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
+            color = Color.Gray,
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .padding(start = 5.dp)

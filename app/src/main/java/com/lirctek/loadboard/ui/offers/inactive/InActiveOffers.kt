@@ -48,7 +48,7 @@ fun InActiveOffers(navController: NavController) {
     } else {
         SwipeRefresh(
             state = rememberSwipeRefreshState(refreshing),
-            onRefresh = { viewModel.refreshItems("InActive") },
+            onRefresh = { viewModel.refreshItems() },
             modifier = Modifier.fillMaxSize()
         ) {
             if (state.offerDataList.isEmpty() && state.error != null){
@@ -74,7 +74,7 @@ fun InActiveOffers(navController: NavController) {
                             onYourOffer = {}
                         )
                         if (i >= state.offerDataList.size - 1 && !state.endReached && !state.isLoading) {
-                            viewModel.loadNextItems("InActive")
+                            viewModel.loadNextItems()
                         }
                         if (i == state.offerDataList.size - 1) {
                             Spacer(modifier = Modifier.height(100.dp))

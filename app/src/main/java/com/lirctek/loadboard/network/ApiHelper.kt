@@ -13,4 +13,8 @@ interface ApiHelper {
 
     @POST(ApiEndpoint.GET_OFFERS)
     suspend  fun getOffers(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: OffersRequest): NetworkResponse<OffersResponse>
+
+    @POST(ApiEndpoint.LOAD_BOARD_LIST)
+    suspend  fun getLoadBoardList(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: LoadBoardListRequest): NetworkResponse<List<LoadBoardDataList>>
+
 }
