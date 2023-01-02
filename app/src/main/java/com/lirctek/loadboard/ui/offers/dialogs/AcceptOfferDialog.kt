@@ -11,8 +11,8 @@ import com.lirctek.loadboard.extensions.fontFamily
 @Composable
 fun AcceptOfferDetailDialog(
     openDialog : Boolean,
-    offerDataList: OfferDataList,
-    onAcceptOffer: (offerItem: OfferDataList) -> Unit,
+    offerDataList: OfferDataList?,
+    onAcceptOffer: (offerItem: OfferDataList?) -> Unit,
     onDismissOffer: () -> Unit
 ){
 
@@ -29,7 +29,7 @@ fun AcceptOfferDetailDialog(
                 fontWeight = FontWeight.Medium
             ) },
             text = { Text(
-                "Are you sure?\nDo you want to accept offer at $ ${offerDataList.bookNowAmount}",
+                "Are you sure?\nDo you want to accept offer at $ ${offerDataList?.bookNowAmount}",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal
             ) },

@@ -47,5 +47,9 @@ class ApiHelperImpl @Inject constructor(
         return safeApiCall { apiServiceEld.getLoadBoardList(header, request).body()!! }
     }
 
+    override suspend fun getTripLoadList(header: String, request: LoadsRequest): NetworkResponse<List<LoadsList>>{
+        return safeApiCall { apiServiceEld.getTripLoadList(header, request).body()!! }
+    }
+
 
 }

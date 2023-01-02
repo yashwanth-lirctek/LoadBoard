@@ -84,6 +84,10 @@ class HomeViewModel @Inject constructor(
 
 }
 
+data class ModelState(
+    var data: LoadBoardDataList? = null
+)
+
 data class ScreenState(
     var isLoading: Boolean = false,
     var dataList: List<LoadBoardDataList> = emptyList(),

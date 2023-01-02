@@ -4,13 +4,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Pin
-import androidx.compose.material.icons.filled.WhereToVote
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,13 +14,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.lirctek.loadboard.data.reqres.LoadsList
 import com.lirctek.loadboard.extensions.fontFamily
 import com.lirctek.loadboard.ui.offers.offersCommonUi.StopUi
 import com.lirctek.loadboard.ui.payments.paymentsUi.ListLocationIconsUi
 import com.lirctek.loadboard.ui.theme.CardBackgroundColor
 
 @Composable
-fun LoadsItemUi(type: String) {
+fun LoadsItemUi(
+    type: String,
+    item: LoadsList,
+    onLayoutClick: (load: LoadsList) -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,6 +39,7 @@ fun LoadsItemUi(type: String) {
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
+                    onLayoutClick(item)
                 }
         ) {
 
@@ -58,11 +59,11 @@ fun LoadsItemUi(type: String) {
                         }
                     }
                     Spacer(modifier = Modifier.width(10.dp))
-                    LocationUi()
+                    LocationUi(item)
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 if (type.equals("Available", ignoreCase = true)) {
-                    CustomerBottomUi()
+                    CustomerBottomUi(item)
                 }
 
             }
@@ -80,7 +81,7 @@ fun LoadsItemUi(type: String) {
                     .width(100.dp)
             ){
                 Text(
-                    text = "#7435674",
+                    text = if (item.dispatchNumber != null) item.dispatchNumber!! else "-",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
@@ -96,19 +97,19 @@ fun LoadsItemUi(type: String) {
 }
 
 @Composable
-fun CustomerBottomUi(){
+fun CustomerBottomUi(item: LoadsList){
     Box(
         modifier = Modifier.fillMaxWidth()
     ) {
         Column {
             Text(
-                text = "Equipment".uppercase(),
+                text = "Load Type".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 12.sp
             )
             Text(
-                text = "Full Truck Load",
+                text = if (item.loadType != null) item.loadType!! else "-",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp
@@ -125,7 +126,7 @@ fun CustomerBottomUi(){
                 fontSize = 12.sp
             )
             Text(
-                text = "000",
+                text = "----Not Getting-------",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp
@@ -135,20 +136,20 @@ fun CustomerBottomUi(){
 }
 
 @Composable
-fun LocationUi() {
+fun LocationUi(item: LoadsList) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(105.dp)
     ){
         Column() {
-            StopUi(type = "Pick Up", location = "Bangalore, KA", time = "Aug, 18 Thue 2002")
+            StopUi(type = "Pick Up", location = item.pickupLocation, time = item.pickupDate)
         }
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Bottom
         ) {
-            StopUi(type = "Delivery", location = "Bangalore, KA", time = "Aug, 18 Thue 2002")
+            StopUi(type = "Delivery", location = item.deliveryLocation, time = item.deliveryDate)
         }
     }
 }

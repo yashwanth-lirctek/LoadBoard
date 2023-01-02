@@ -90,16 +90,17 @@ class LoginViewModel @Inject constructor(
                 try {
                     val driverObject: DriverObject = response.body
                     Log.e("LOGIN_DATA", Gson().toJson(driverObject))
-                    initPreferences(loginResponse, driverObject)
-                    onSuccessFullLogin.value = true
-
+                    if (driverObject.username != null) {
+                        initPreferences(loginResponse, driverObject)
+                        onSuccessFullLogin.value = true
+                    }else{
+                        errorMessage.value = "Unable to get driver details, Please try again later."
+                    }
                 }catch (ex:Exception){
-                    Log.e("LOGIN_DATA", "EXCEPTION")
                     errorMessage.value = "Unable to get driver details, Please try again later."
                 }
             }
             is NetworkResponse.Error ->{
-                Log.e("LOGIN_DATA", "error")
                 errorMessage.value = "Unable to get driver details, Please try again later."
             }
         }
@@ -109,14 +110,12 @@ class LoginViewModel @Inject constructor(
         Preferences.getAppPref().isUserLoggedIn = true
         Preferences.getAppPref().userId = loginResponse.user!!.Id
         Preferences.getAppPref().firstName = driverObject.firstName
-        Preferences.getAppPref().lastName = driverObject.lastName
         Preferences.getAppPref().email = driverObject.email
-        Preferences.getAppPref().driverId = driverObject.id
+        Preferences.getAppPref().driverId = driverObject.id.toLong()
         Preferences.getAppPref().splitFullLoad = driverObject.splitFullLoad
         Preferences.getAppPref().isFullLoad = driverObject.isFullLoad
         Preferences.getAppPref().isLTL = driverObject.isLTL
         Preferences.getAppPref().phoneNo = driverObject.phone
-        Preferences.getAppPref().gpsPingRate = driverObject.pingRate
     }
 
 }

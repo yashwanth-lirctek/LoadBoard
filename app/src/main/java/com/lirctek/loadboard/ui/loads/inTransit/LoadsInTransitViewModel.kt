@@ -5,10 +5,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.lirctek.loadboard.data.pagination.DefaultPaginator
+import com.lirctek.loadboard.data.reqres.LoadsList
 import com.lirctek.loadboard.data.reqres.OfferDataList
 import com.lirctek.loadboard.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,10 +39,10 @@ class LoadsInTransitViewModel @Inject constructor(
             state = state.copy(isLoading = it)
         },
         onRequest = { nextPage ->
-            repository.getOffers(nextPage, 1, "Active")
+            repository.getTripLoadList(nextPage, 10)
         },
         getNextKey = {
-            state.page + 1
+            state.page + 10
         },
         onError = {
             isRefreshing.value = false
@@ -59,11 +62,30 @@ class LoadsInTransitViewModel @Inject constructor(
         }
     )
 
+    init {
+        paginator.reset()
+        loadNextItems()
+    }
+
+    fun loadNextItems(){
+        viewModelScope.launch {
+            paginator.loadNextItems()
+        }
+    }
+
+    fun refreshItems(){
+        viewModelScope.launch {
+            isRefreshing.value = true
+            paginator.reset()
+            paginator.loadNextItems()
+        }
+    }
+
 }
 
 data class ScreenState(
     var isLoading: Boolean = false,
-    var loadsList: List<OfferDataList> = emptyList(),
+    var loadsList: List<LoadsList> = emptyList(),
     var error: String? = null,
     var endReached: Boolean = false,
     var page: Int = 0

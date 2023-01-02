@@ -72,6 +72,28 @@ class Repository @Inject constructor(
         }
     }
 
+    suspend fun getTripLoadList(index: Int, pageSize: Int): Result<List<LoadsList>>{
+        val loadsRequest = LoadsRequest(
+            carrier_Id = Preferences.getAppPref().driverId.toInt(),
+            role_Id = 17,
+            pageSize = pageSize,
+            indexNumber = index
+        )
+        val response = apiHelper.getTripLoadList(getNewToken(), loadsRequest)
+        when (response){
+            is NetworkResponse.Success -> {
+                if (response.body.isNotEmpty()) {
+                    return Result.success(response.body)
+                } else {
+                    return Result.success(emptyList())
+                }
+            }
+            is NetworkResponse.Error -> {
+                return Result.failure(TestException("Unable to get data please try again"))
+            }
+        }
+    }
+
     fun getToken(): String {
         return ("Bearer " + Preferences.getAppPref().token)
     }

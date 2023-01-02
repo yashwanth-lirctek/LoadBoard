@@ -4,9 +4,7 @@ import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -19,6 +17,7 @@ import com.lirctek.loadboard.connectivity.ConnectivityObserver
 import com.lirctek.loadboard.connectivity.NetworkConnectivityObserver
 import com.lirctek.loadboard.ui.noData.NoDataScreen
 import com.lirctek.loadboard.ui.noInternet.NoInternetScreen
+import com.lirctek.loadboard.ui.offers.dialogs.AcceptOfferDetailDialog
 import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsShimmerUi
 import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsUi
 
@@ -31,7 +30,6 @@ fun ActiveOffers(navController: NavController) {
     )
 
     val state = viewModel.state
-
     val refreshing by viewModel.isRefreshing
 
     if (state.offerDataList.isEmpty() && !refreshing){
@@ -40,7 +38,24 @@ fun ActiveOffers(navController: NavController) {
         InitShimmer(b = false)
     }
 
+    var openDialog  by remember { mutableStateOf(false) }
+    var dataState by remember {
+        mutableStateOf(ModelState())
+    }
+
+    AcceptOfferDetailDialog(
+        openDialog = dataState.data != null && openDialog,
+        offerDataList = dataState.data,
+        onAcceptOffer = {
+            openDialog = false
+        },
+        onDismissOffer = {
+            openDialog = false
+        }
+    )
+
     if (status != ConnectivityObserver.Status.Available && state.offerDataList.isEmpty()){
+        InitShimmer(b = false)
         NoInternetScreen()
     } else {
         SwipeRefresh(
@@ -70,6 +85,10 @@ fun ActiveOffers(navController: NavController) {
                                 navController.navigate("main/offers/details/$json")
                             },
                             onAcceptOffer = {
+                                dataState = dataState.copy(
+                                    data = it
+                                )
+                                openDialog = true
                             },
                             onPlaceOffer = {
                             },
@@ -106,8 +125,6 @@ fun InitShimmer(b: Boolean) {
     if (b) {
         Column {
             Spacer(modifier = Modifier.height(5.dp))
-            OfferItemsShimmerUi()
-            OfferItemsShimmerUi()
             OfferItemsShimmerUi()
             OfferItemsShimmerUi()
         }

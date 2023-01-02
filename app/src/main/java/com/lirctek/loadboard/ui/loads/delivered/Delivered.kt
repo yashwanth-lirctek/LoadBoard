@@ -1,8 +1,9 @@
 package com.lirctek.loadboard.ui.loads.delivered
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -14,8 +15,9 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.lirctek.loadboard.connectivity.ConnectivityObserver
 import com.lirctek.loadboard.connectivity.NetworkConnectivityObserver
-import com.lirctek.loadboard.ui.loads.LoadsAvailableViewModel
+import com.lirctek.loadboard.ui.loads.LoadsConstants
 import com.lirctek.loadboard.ui.loads.loadsUi.LoadsItemUi
+import com.lirctek.loadboard.ui.noData.NoDataScreen
 import com.lirctek.loadboard.ui.noInternet.NoInternetScreen
 import com.lirctek.loadboard.ui.offers.active.InitShimmer
 
@@ -28,29 +30,65 @@ fun DeliveredUi(navController: NavController) {
     )
 
     val state = viewModel.state
+    val refreshing by viewModel.isRefreshing
 
-    if (state.loadsList.isNotEmpty()){
-        InitShimmer(b = false)
+    if (state.loadsList.isEmpty() && !refreshing){
+        InitShimmer(b = true)
     }else{
         InitShimmer(b = false)
     }
 
-    val refreshing by viewModel.isRefreshing
-
     if (status != ConnectivityObserver.Status.Available && state.loadsList.isEmpty()){
         NoInternetScreen()
+        InitShimmer(b = false)
     } else {
         SwipeRefresh(
             state = rememberSwipeRefreshState(refreshing),
-            onRefresh = { /*----------Pending---------------*/ },
+            onRefresh = { viewModel.refreshItems()  },
             modifier = Modifier.fillMaxSize()
         ) {
-            Column(modifier = Modifier.fillMaxSize()) {
-                Spacer(modifier = Modifier.height(5.dp))
-                LoadsItemUi("Delivered")
-                LoadsItemUi("Delivered")
-                LoadsItemUi("Delivered")
-                LoadsItemUi("Delivered")
+            if (state.loadsList.isEmpty() && state.error != null){
+                //Show Empty List
+                InitShimmer(b = false)
+                NoDataScreen("No active offers available")
+            }else {
+                InitShimmer(b = false)
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(state.loadsList.size) { i ->
+                        if (i == 0) {
+                            Spacer(modifier = Modifier.height(5.dp))
+                        }
+                        val item = state.loadsList[i]
+                        LoadsItemUi(LoadsConstants.DELIVERED, item){
+
+                        }
+                        if (i >= state.loadsList.size - 1 && !state.endReached && !state.isLoading) {
+                            viewModel.loadNextItems()
+                        }
+                        if (i == state.loadsList.size - 1 && !state.isLoading) {
+                            Spacer(modifier = Modifier.height(100.dp))
+                        }
+                    }
+                    item {
+                        if (state.isLoading && state.loadsList.isNotEmpty()) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(
+                                        start = 10.dp,
+                                        end = 10.dp,
+                                        top = 20.dp,
+                                        bottom = 80.dp
+                                    ),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                CircularProgressIndicator()
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -22,11 +22,8 @@ import com.lirctek.loadboard.ui.offers.active.InitShimmer
 import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsShimmerUi
 import com.lirctek.loadboard.ui.offers.offersCommonUi.OfferItemsUi
 
-var isFirstTimeShimmer: Boolean = true
 @Composable
 fun InActiveOffers(navController: NavController) {
-
-    LaunchedEffect(Unit){ isFirstTimeShimmer = true }
 
     val viewModel = hiltViewModel<OffersInActiveViewModel>()
     val status by NetworkConnectivityObserver(LocalContext.current.applicationContext).observe().collectAsState(
@@ -34,16 +31,16 @@ fun InActiveOffers(navController: NavController) {
     )
 
     val state = viewModel.state
-
-    if (state.offerDataList.isNotEmpty()){
-        InitShimmer(b = false)
-    }else{
-        InitShimmer(b = true)
-    }
-
     val refreshing by viewModel.isRefreshing
 
+    if (state.offerDataList.isEmpty() && !refreshing){
+        InitShimmer(b = true)
+    }else{
+        InitShimmer(b = false)
+    }
+
     if (status != ConnectivityObserver.Status.Available && state.offerDataList.isEmpty()){
+        InitShimmer(b = false)
         NoInternetScreen()
     } else {
         SwipeRefresh(
@@ -53,8 +50,10 @@ fun InActiveOffers(navController: NavController) {
         ) {
             if (state.offerDataList.isEmpty() && state.error != null){
                 //Show Empty List
+                InitShimmer(b = false)
                 NoDataScreen("No in-active offers available")
             }else {
+                InitShimmer(b = false)
                 LazyColumn(
                     modifier = Modifier.fillMaxSize()
                 ) {
@@ -101,8 +100,7 @@ fun InActiveOffers(navController: NavController) {
 
 @Composable
 fun InitShimmer(b: Boolean) {
-    if (b && isFirstTimeShimmer) {
-        isFirstTimeShimmer = false
+    if (b) {
         Column {
             OfferItemsShimmerUi()
             OfferItemsShimmerUi()

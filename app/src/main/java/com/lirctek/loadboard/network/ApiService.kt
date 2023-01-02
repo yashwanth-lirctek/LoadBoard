@@ -18,4 +18,7 @@ interface ApiService {
     @POST(ApiEndpoint.LOAD_BOARD_LIST)
     suspend fun getLoadBoardList(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: LoadBoardListRequest): Response<List<LoadBoardDataList>>
 
+    @POST(ApiEndpoint.GET_TRIP_LOAD)
+    suspend fun getTripLoadList(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: LoadsRequest): Response<List<LoadsList>>
+
 }

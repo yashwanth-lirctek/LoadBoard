@@ -200,7 +200,7 @@ fun OfferButtonUi(
             color = MaterialTheme.colors.primary
         )
         Text(
-            text = if (value != null) " : $ $value" else "-",
+            text = if (value != null) " : $ $value" else "",
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 14.sp

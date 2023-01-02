@@ -79,12 +79,6 @@ class Preferences {
             insert(this)
         }
 
-    var gpsPingRate: Long = 0
-        set(value){
-            field = value
-            insert(this)
-        }
-
     fun onLogout() {
         isUserLoggedIn = false
         token = null
@@ -97,7 +91,6 @@ class Preferences {
         isFullLoad = 0
         isLTL = 0
         phoneNo = null
-        gpsPingRate = 0
     }
 
     fun insert(preferences: Preferences){

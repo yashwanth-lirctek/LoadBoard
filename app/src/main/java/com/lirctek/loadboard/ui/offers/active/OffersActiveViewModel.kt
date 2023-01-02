@@ -4,8 +4,10 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lirctek.loadboard.data.pagination.DefaultPaginator
+import com.lirctek.loadboard.data.reqres.LoadBoardDataList
 import com.lirctek.loadboard.data.reqres.OfferDataList
 import com.lirctek.loadboard.repository.Repository
+import com.lirctek.loadboard.ui.offers.OffersConstants
 import com.lirctek.loadboard.ui.offers.inactive.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -36,10 +38,10 @@ class OffersActiveViewModel @Inject constructor(
             state = state.copy(isLoading = it)
         },
         onRequest = { nextPage ->
-            repository.getOffers(nextPage, 10, "Active")
+            repository.getOffers(nextPage, OffersConstants.PageSize, "Active")
         },
         getNextKey = {
-            state.page + 10
+            state.page + OffersConstants.PageSize
         },
         onError = {
             isRefreshing.value = false
@@ -50,7 +52,7 @@ class OffersActiveViewModel @Inject constructor(
             val newList = state.offerDataList + offerData
             val error = if (state.offerDataList.isEmpty() && offerData.isEmpty()) "No Data" else null
             state = state.copy(
-                offerDataList = newList,
+                offerDataList = (newList),
                 page = newKey,
                 endReached = offerData.isEmpty(),
                 isLoading = offerData.isNotEmpty(),
@@ -79,6 +81,10 @@ class OffersActiveViewModel @Inject constructor(
     }
 
 }
+
+data class ModelState(
+    var data: OfferDataList? = null
+)
 
 data class ScreenState(
     var isLoading: Boolean = false,
