@@ -89,7 +89,6 @@ class LoginViewModel @Inject constructor(
             is NetworkResponse.Success ->{
                 try {
                     val driverObject: DriverObject = response.body
-                    Log.e("LOGIN_DATA", Gson().toJson(driverObject))
                     if (driverObject.username != null) {
                         initPreferences(loginResponse, driverObject)
                         onSuccessFullLogin.value = true
