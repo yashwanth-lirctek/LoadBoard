@@ -1,5 +1,6 @@
 package com.lirctek.loadboard.ui.navigation
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
@@ -11,10 +12,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.gson.Gson
 import com.lirctek.loadboard.data.reqres.LoadBoardDataList
+import com.lirctek.loadboard.data.reqres.LoadsList
 import com.lirctek.loadboard.data.reqres.OfferDataList
 import com.lirctek.loadboard.ui.home.HomeUi
 import com.lirctek.loadboard.ui.home.homeDetails.HomeDetailsUi
 import com.lirctek.loadboard.ui.loads.LoadsUi
+import com.lirctek.loadboard.ui.loads.loadDetails.LoadDetailsUi
+import com.lirctek.loadboard.ui.loads.loadDetails.documents.LoadDetailsDocumentUi
+import com.lirctek.loadboard.ui.loads.loadDetails.main.LoadDetailsMainUi
 import com.lirctek.loadboard.ui.login.LoginScreen
 import com.lirctek.loadboard.ui.main.MainUi
 import com.lirctek.loadboard.ui.offers.OffersUi
@@ -59,6 +64,17 @@ fun Navigation() {
                 HomeDetailsUi(navController, it)
             }
         }
+        composable("main/loads/details/{loadData}",
+            arguments = listOf(
+                navArgument("loadData") {
+                    type = AssetParamTypeLoads()
+                }
+            )){
+            val offerItem = it.arguments?.getParcelable<LoadsList>("loadData")
+            offerItem?.let {
+                LoadDetailsUi(navController, it)
+            }
+        }
         composable("main/payments/paid/details"){
             PaidDetailsUi()
         }
@@ -82,6 +98,42 @@ fun HomeNavigation(navController: NavHostController, mainNavController: NavContr
         }
         composable("main/payments"){
             PaymentsUi(navController = mainNavController)
+        }
+    }
+}
+
+@Composable
+fun LoadDetailsNavigation(
+    navController: NavHostController,
+    mainNavController: NavController,
+    loadData: LoadsList
+) {
+    val json = Uri.encode(Gson().toJson(loadData))
+    NavHost(navController = navController, startDestination = "main/loads/details/main"){
+        composable("main/loads/details/main"){
+            LoadDetailsMainUi(mainNavController, loadData)
+        }
+        composable("main/loads/details/main/{loadData}",
+            arguments = listOf(
+                navArgument("loadData") {
+                    type = AssetParamTypeLoads()
+                }
+            )){
+            val offerItem = it.arguments?.getParcelable<LoadsList>("loadData")
+            offerItem?.let {
+                LoadDetailsMainUi(mainNavController, it)
+            }
+        }
+        composable("main/loads/details/documents/{loadData}",
+            arguments = listOf(
+                navArgument("loadData") {
+                    type = AssetParamTypeLoads()
+                }
+            )){
+            val offerItem = it.arguments?.getParcelable<LoadsList>("loadData")
+            offerItem?.let {
+                LoadDetailsDocumentUi(mainNavController, it)
+            }
         }
     }
 }
@@ -110,6 +162,20 @@ class AssetParamTypeHome : NavType<LoadBoardDataList>(isNullableAllowed = false)
     }
 
     override fun put(bundle: Bundle, key: String, value: LoadBoardDataList) {
+        bundle.putParcelable(key, value)
+    }
+}
+
+class AssetParamTypeLoads : NavType<LoadsList>(isNullableAllowed = false) {
+    override fun get(bundle: Bundle, key: String): LoadsList? {
+        return bundle.getParcelable(key)
+    }
+
+    override fun parseValue(value: String): LoadsList {
+        return Gson().fromJson(value, LoadsList::class.java)
+    }
+
+    override fun put(bundle: Bundle, key: String, value: LoadsList) {
         bundle.putParcelable(key, value)
     }
 }

@@ -37,29 +37,37 @@ fun BottomNav(navController: NavController) {
             NavItem(
                 item = offers,
                 isSelected = offers.id == currentSelectedScreenId) {
-                currentSelectedScreenId = offers.id
-                navController.navigate("main/offers")
+                if (currentSelectedScreenId != offers.id) {
+                    currentSelectedScreenId = offers.id
+                    navController.navigate("main/offers")
+                }
             }
         }
         Spacer(modifier = Modifier.weight(0.2f))
         BottomItems.LOADS.let { loads ->
             NavItem(item = loads, isSelected = loads.id == currentSelectedScreenId) {
-                currentSelectedScreenId = loads.id
-                navController.navigate("main/loads")
+                if (currentSelectedScreenId != loads.id) {
+                    currentSelectedScreenId = loads.id
+                    navController.navigate("main/loads")
+                }
             }
         }
         Spacer(modifier = Modifier.weight(1f))
         BottomItems.PAYMENT.let { payment ->
             NavItem(item = payment, isSelected = payment.id == currentSelectedScreenId) {
-                currentSelectedScreenId = payment.id
-                navController.navigate("main/payments")
+                if (currentSelectedScreenId != payment.id) {
+                    currentSelectedScreenId = payment.id
+                    navController.navigate("main/payments")
+                }
             }
         }
         Spacer(modifier = Modifier.weight(0.2f))
         BottomItems.SETTINGS.let { settings ->
             NavItem(item = settings, isSelected = settings.id == currentSelectedScreenId) {
-                currentSelectedScreenId = settings.id
-                navController.navigate("main/settings")
+                if (currentSelectedScreenId != settings.id) {
+                    currentSelectedScreenId = settings.id
+                    navController.navigate("main/settings")
+                }
             }
         }
 

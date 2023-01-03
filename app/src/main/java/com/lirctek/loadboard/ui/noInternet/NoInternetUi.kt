@@ -26,7 +26,7 @@ import com.lirctek.loadboard.extensions.fontFamily
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun NoInternetScreen() {
-    Surface(modifier = Modifier.fillMaxSize().padding(bottom = 100.dp)) {
+    Surface(modifier = Modifier.fillMaxSize().padding(bottom = 70.dp)) {
 
         Column(
             modifier = Modifier.fillMaxSize(),

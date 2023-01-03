@@ -104,8 +104,6 @@ fun InitShimmer(b: Boolean) {
         Column {
             OfferItemsShimmerUi()
             OfferItemsShimmerUi()
-            OfferItemsShimmerUi()
-            OfferItemsShimmerUi()
         }
     }
 }

@@ -149,8 +149,6 @@ fun InitShimmer(b: Boolean) {
             Spacer(modifier = Modifier.height(5.dp))
             OfferItemsShimmerUi()
             OfferItemsShimmerUi()
-            OfferItemsShimmerUi()
-            OfferItemsShimmerUi()
         }
     }
 }

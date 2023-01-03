@@ -1,5 +1,6 @@
 package com.lirctek.loadboard.ui.loads.available
 
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
@@ -13,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.google.gson.Gson
 import com.lirctek.loadboard.connectivity.ConnectivityObserver
 import com.lirctek.loadboard.connectivity.NetworkConnectivityObserver
 import com.lirctek.loadboard.ui.loads.LoadsConstants
@@ -62,7 +64,8 @@ fun AvailableUi(navController: NavController) {
                         }
                         val item = state.loadsList[i]
                         LoadsItemUi(LoadsConstants.AVAILABLE, item){
-
+                            val json = Uri.encode(Gson().toJson(it))
+                            navController.navigate("main/loads/details/$json")
                         }
                         if (i >= state.loadsList.size - 1 && !state.endReached && !state.isLoading) {
                             viewModel.loadNextItems()
