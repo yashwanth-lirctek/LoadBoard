@@ -38,7 +38,6 @@ fun PasswordUi() {
                 autoCorrect = true,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.background)
             ){}
             Spacer(modifier = Modifier.height(10.dp))
             OutLineTextField(
@@ -48,7 +47,6 @@ fun PasswordUi() {
                 autoCorrect = true,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.background)
             ){}
             Spacer(modifier = Modifier.height(10.dp))
             OutLineTextField(
@@ -58,7 +56,6 @@ fun PasswordUi() {
                 autoCorrect = true,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.background)
             ){}
         }
     }

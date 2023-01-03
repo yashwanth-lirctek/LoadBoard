@@ -26,7 +26,8 @@ fun ProfileUi(){
     val scrollState = rememberScrollState()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -42,7 +43,6 @@ fun ProfileUi(){
                 autoCorrect = true,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.background)
             ){}
             Spacer(modifier = Modifier.height(10.dp))
             Row() {
@@ -53,7 +53,6 @@ fun ProfileUi(){
                     autoCorrect = true,
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
-                        .background(MaterialTheme.colors.background)
                 ){}
                 Spacer(modifier = Modifier.width(10.dp))
                 OutLineTextField(
@@ -63,7 +62,6 @@ fun ProfileUi(){
                     autoCorrect = true,
                     modifier = Modifier
                         .fillMaxWidth(1f)
-                        .background(MaterialTheme.colors.background)
                 ){}
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -74,7 +72,6 @@ fun ProfileUi(){
                 autoCorrect = true,
                 modifier = Modifier
                     .fillMaxWidth(1f)
-                    .background(MaterialTheme.colors.background)
             ){}
             Spacer(modifier = Modifier.height(10.dp))
             Row() {
@@ -85,7 +82,6 @@ fun ProfileUi(){
                     autoCorrect = true,
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
-                        .background(MaterialTheme.colors.background)
                 ){}
                 Spacer(modifier = Modifier.width(10.dp))
                 OutLineTextField(
@@ -95,7 +91,6 @@ fun ProfileUi(){
                     autoCorrect = true,
                     modifier = Modifier
                         .fillMaxWidth(1f)
-                        .background(MaterialTheme.colors.background)
                 ){}
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -106,7 +101,6 @@ fun ProfileUi(){
                 autoCorrect = true,
                 modifier = Modifier
                     .fillMaxWidth(1f)
-                    .background(MaterialTheme.colors.background)
             ){}
             Spacer(modifier = Modifier.height(10.dp))
             OutLineTextField(
@@ -116,7 +110,6 @@ fun ProfileUi(){
                 autoCorrect = true,
                 modifier = Modifier
                     .fillMaxWidth(1f)
-                    .background(MaterialTheme.colors.background)
             ){}
             Spacer(modifier = Modifier.height(10.dp))
             OutLineTextField(
@@ -126,7 +119,6 @@ fun ProfileUi(){
                 autoCorrect = true,
                 modifier = Modifier
                     .fillMaxWidth(1f)
-                    .background(MaterialTheme.colors.background)
             ){}
             Spacer(modifier = Modifier.height(10.dp))
             Row() {
@@ -137,7 +129,6 @@ fun ProfileUi(){
                     autoCorrect = true,
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
-                        .background(MaterialTheme.colors.background)
                 ){}
                 Spacer(modifier = Modifier.width(10.dp))
                 OutLineTextField(
@@ -147,7 +138,6 @@ fun ProfileUi(){
                     autoCorrect = true,
                     modifier = Modifier
                         .fillMaxWidth(1f)
-                        .background(MaterialTheme.colors.background)
                 ){}
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -158,7 +148,6 @@ fun ProfileUi(){
                 autoCorrect = true,
                 modifier = Modifier
                     .fillMaxWidth(1f)
-                    .background(MaterialTheme.colors.background)
             ){}
             Spacer(modifier = Modifier.height(100.dp))
         }

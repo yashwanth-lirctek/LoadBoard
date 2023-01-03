@@ -93,6 +93,8 @@ fun ActiveOffers(navController: NavController) {
                             onPlaceOffer = {
                             },
                             onYourOffer = {
+                                val json = Uri.encode(Gson().toJson(it))
+                                navController.navigate("main/offers/details/edit/$json")
                             }
                         )
                         if (i >= state.offerDataList.size - 1 && !state.endReached && !state.isLoading) {

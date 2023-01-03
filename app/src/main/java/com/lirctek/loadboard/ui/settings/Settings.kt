@@ -49,24 +49,26 @@ fun SettingsUi(navController: NavController) {
             SettingsToolBar(navController, isEditButton, isSaveButton)
         },
         scaffoldState = scaffoldState,
-        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface
     ) { paddingValues ->
 
         Column() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.primary)
                     .padding(paddingValues)
                     .padding(start = 15.dp, top = 2.dp, end = 15.dp, bottom = 12.dp)
             ) {
                 Row(
                     modifier = Modifier
                         .clip(RoundedCornerShape(50.dp))
-                        .background(ToolBarBackColor)
+                        .background(androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant)
                 ) {
 
-                    TabText(tabItems = tabItems, currentPage = pagerState.currentPage) { index ->
+                    com.lirctek.loadboard.ui.payments.TabText(
+                        tabItems = tabItems,
+                        currentPage = pagerState.currentPage
+                    ) { index ->
                         scope.launch {
                             pagerState.animateScrollToPage(index)
                         }
@@ -81,7 +83,7 @@ fun SettingsUi(navController: NavController) {
                     state = pagerState,
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(color = Color.White)
+                        .background(androidx.compose.material3.MaterialTheme.colorScheme.background)
                 ) { page ->
                     if (pagerState.currentPage == 0){
                         isEditButton = true
@@ -112,7 +114,7 @@ fun TabText(tabItems: List<String>, currentPage: Int, onClick:(index: Int) -> Un
         Row(
             modifier = Modifier
                 .clip(RoundedCornerShape(50.dp))
-                .background(if (currentPage == index) Color.White else ToolBarBackColor)
+                .background(if (currentPage == index) Color.White else androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant)
                 .clickable(onClick = { onClick(index) })
                 .padding(horizontal = 15.dp, vertical = 6.dp),
         ) {

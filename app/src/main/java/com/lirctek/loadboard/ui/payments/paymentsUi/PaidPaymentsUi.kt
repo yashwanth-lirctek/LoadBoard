@@ -31,7 +31,7 @@ fun PaidPaymentsUi(
         Card(
             shape = RoundedCornerShape(10.dp),
             elevation = 2.dp,
-            backgroundColor = CardBackgroundColor,
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.tertiary,
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
@@ -73,6 +73,7 @@ fun PaidBottomUi(amount: String) {
             fontFamily = fontFamily,
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
+            color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer,
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .padding(start = 5.dp)
@@ -87,6 +88,7 @@ fun PaidBottomUi(amount: String) {
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
 
@@ -103,7 +105,7 @@ fun PaidMiddleUi(text: String, amount : String, type: String) {
             fontFamily = fontFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
-            color = Color.Gray,
+            color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer,
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .padding(start = 5.dp)
@@ -118,6 +120,7 @@ fun PaidMiddleUi(text: String, amount : String, type: String) {
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
 
@@ -135,13 +138,14 @@ fun PaidTopUi() {
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
-                color = MaterialTheme.colors.primary
+                color = androidx.compose.material3.MaterialTheme.colorScheme.secondary
             )
             Text(
                 text = "Apr 21, 2000".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 14.sp
+                fontSize = 14.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
         Column(
@@ -152,13 +156,15 @@ fun PaidTopUi() {
                 text = "Paid".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
                 text = "$ 300",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
     }

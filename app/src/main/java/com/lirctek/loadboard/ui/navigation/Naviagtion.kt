@@ -24,6 +24,7 @@ import com.lirctek.loadboard.ui.login.LoginScreen
 import com.lirctek.loadboard.ui.main.MainUi
 import com.lirctek.loadboard.ui.offers.OffersUi
 import com.lirctek.loadboard.ui.offers.offerDetails.OfferDetails
+import com.lirctek.loadboard.ui.offers.offerDetails.OfferEditUi
 import com.lirctek.loadboard.ui.payments.PaymentsUi
 import com.lirctek.loadboard.ui.payments.paid.details.PaidDetailsUi
 import com.lirctek.loadboard.ui.settings.SettingsUi
@@ -51,6 +52,17 @@ fun Navigation() {
             val offerItem = it.arguments?.getParcelable<OfferDataList>("offersList")
             offerItem?.let {
                 OfferDetails(navController, it)
+            }
+        }
+        composable("main/offers/details/edit/{offersList}",
+            arguments = listOf(
+                navArgument("offersList") {
+                    type = AssetParamTypeOffers()
+                }
+            )){
+            val offerItem = it.arguments?.getParcelable<OfferDataList>("offersList")
+            offerItem?.let {
+                OfferEditUi(navController, it)
             }
         }
         composable("main/home/details/{dataList}",

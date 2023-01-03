@@ -38,13 +38,13 @@ fun PaidDetailsUi(){
         topBar = {
             PaymentsPaidToolBar()
         },
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(MaterialTheme.colors.background)
                 .padding(10.dp)
                 .verticalScroll(scrollState)
         ) {
@@ -57,7 +57,7 @@ fun PaidDetailsUi(){
                 fontSize = 18.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.primary
+                color = androidx.compose.material3.MaterialTheme.colorScheme.secondary
             )
             Spacer(modifier = Modifier.height(5.dp))
             Divider(color = Color.Gray, thickness = 1.dp)
@@ -90,7 +90,6 @@ fun PaidDetailsMainUi() {
         modifier = Modifier
             .fillMaxWidth()
             .height(80.dp)
-            .background(CardBackgroundColor)
             .padding(10.dp),
     ) {
         Column(
@@ -103,14 +102,17 @@ fun PaidDetailsMainUi() {
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 14.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
+
             )
             Text(
                 text = "$ 2500",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
         Divider(color = Color.Gray, modifier = Modifier
@@ -126,14 +128,16 @@ fun PaidDetailsMainUi() {
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 14.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
                 text = "$ 2500",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
         Divider(color = Color.Gray, modifier = Modifier
@@ -149,14 +153,16 @@ fun PaidDetailsMainUi() {
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 14.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
                 text = "$ 3500",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
     }
@@ -169,7 +175,7 @@ fun StopDetailsUi(){
         Card(
             shape = RoundedCornerShape(10.dp),
             elevation = 0.dp,
-            backgroundColor = MaterialTheme.colors.primary,
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.onTertiary,
         ) {
             Box(
                 modifier = Modifier.padding(horizontal = 2.dp, vertical = 5.dp)) {
