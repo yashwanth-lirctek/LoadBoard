@@ -44,8 +44,8 @@ fun HomeUi(
         Card(
             shape = RoundedCornerShape(10.dp),
             elevation = 2.dp,
-            backgroundColor = CardBackgroundColor,
-            modifier = Modifier
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.tertiary,
+            modifier = Modifier.padding(top = 15.dp)
                 .fillMaxWidth()
                 .clickable {
                     onLayoutClick(item)
@@ -60,7 +60,7 @@ fun HomeUi(
                     Card(
                         shape = RoundedCornerShape(10.dp),
                         elevation = 0.dp,
-                        backgroundColor = MaterialTheme.colors.primary,
+                        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.onTertiary,
                     ) {
                         Box(
                             modifier = Modifier.padding(horizontal = 2.dp, vertical = 5.dp)) {
@@ -100,7 +100,7 @@ fun HomeUi(
             Card(
                 shape = RoundedCornerShape(10.dp),
                 elevation = 2.dp,
-                backgroundColor = Color.White,
+                backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.onTertiary,
                 modifier = Modifier
                     .width(100.dp)
             ){
@@ -110,7 +110,7 @@ fun HomeUi(
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colors.primary,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.fillMaxWidth()
                         .padding(horizontal = 10.dp, vertical = 3.dp)
                 )
@@ -178,7 +178,7 @@ fun OfferButtonUi(
         modifier = modifier
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colors.primary,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
                 shape = RoundedCornerShape(10.dp)
             )
             .padding(horizontal = 10.dp, vertical = 3.dp)
@@ -187,7 +187,7 @@ fun OfferButtonUi(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = MaterialTheme.colors.primary,
+                tint = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.padding(0.dp, 0.dp, 5.dp, 0.dp)
             )
         }
@@ -196,13 +196,14 @@ fun OfferButtonUi(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 14.sp,
-            color = MaterialTheme.colors.primary
+            color = androidx.compose.material3.MaterialTheme.colorScheme.secondary
         )
         Text(
             text = if (value != null) " : $ $value" else "",
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 14.sp
+            fontSize = 14.sp,
+            color = androidx.compose.material3.MaterialTheme.colorScheme.secondary
         )
     }
 
@@ -218,13 +219,15 @@ fun BookAndOfferUi(item: LoadBoardDataList) {
                 text = "Lowest Offer".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
                 text = "$ ${item.LowestOfferAmount}",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
         Column(
@@ -235,13 +238,15 @@ fun BookAndOfferUi(item: LoadBoardDataList) {
                 text = "Book Now".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
                 text = "$ ${item.BookNowAmount}",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
     }
@@ -257,14 +262,16 @@ fun CustomerMilesUi(item: LoadBoardDataList) {
                 text = "Customer".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             if (item.CustomerName != null){
                 Text(
                     text = item.CustomerName!!,
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
             }
         }
@@ -276,13 +283,15 @@ fun CustomerMilesUi(item: LoadBoardDataList) {
                 text = "Loaded Miles".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
                 text = item.TotalMiles.toString(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
     }
@@ -321,13 +330,15 @@ fun StopUi(
                 text = type.uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
                 text = location ?: "-",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
         Column(
@@ -339,7 +350,8 @@ fun StopUi(
                     text = time,
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 12.sp
+                    fontSize = 12.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
             }
         }

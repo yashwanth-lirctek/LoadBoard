@@ -34,13 +34,13 @@ fun LoadDetailsMainUi(mainNavController: NavController, loadData: LoadsList) {
         topBar = {
             LoadDetailMainToolBar(loadData = loadData)
         },
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(MaterialTheme.colors.background)
         ){
         }
     }

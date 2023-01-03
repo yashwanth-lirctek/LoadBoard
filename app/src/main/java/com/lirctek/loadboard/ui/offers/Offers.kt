@@ -43,21 +43,21 @@ fun OffersUi(navController: NavController) {
         topBar = {
             HomeOtherToolBar("Offers")
         },
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface
     ) { paddingValues ->
 
         Column() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.primary)
                     .padding(paddingValues)
                     .padding(start = 15.dp, top = 2.dp, end = 15.dp, bottom = 12.dp)
             ) {
                 Row(
                     modifier = Modifier
                         .clip(RoundedCornerShape(50.dp))
-                        .background(ToolBarBackColor)
+                        .background(androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant)
                 ) {
 
                     TabText(tabItems = tabItems, currentPage = pagerState.currentPage) { index ->
@@ -76,7 +76,7 @@ fun OffersUi(navController: NavController) {
                         state = pagerState,
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(color = Color.White)
+                            .background(androidx.compose.material3.MaterialTheme.colorScheme.background)
                     ) { page ->
                         if (page == 0){
                             ActiveOffers(navController)
@@ -96,7 +96,7 @@ fun TabText(tabItems: List<String>, currentPage: Int, onClick:(index: Int) -> Un
         Row(
             modifier = Modifier
                 .clip(RoundedCornerShape(50.dp))
-                .background(if (currentPage == index) Color.White else ToolBarBackColor)
+                .background(if (currentPage == index) Color.White else androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant)
                 .clickable(onClick = { onClick(index) })
                 .padding(horizontal = 15.dp, vertical = 6.dp),
         ) {

@@ -48,7 +48,7 @@ fun SplashScreen(navController: NavController){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background),
+            .background(androidx.compose.material3.MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         Image(

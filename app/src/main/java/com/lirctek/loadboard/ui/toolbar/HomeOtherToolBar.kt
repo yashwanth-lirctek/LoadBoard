@@ -19,10 +19,10 @@ fun HomeOtherToolBar(text: String){
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 20.sp,
-            color = Color.White
+            color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
         )
         },
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
         elevation = 0.dp
     )
 }

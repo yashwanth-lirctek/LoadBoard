@@ -42,13 +42,13 @@ fun HomeDetailsUi(navController: NavHostController, loadBoardDataList: LoadBoard
         topBar = {
             HomeDetailsToolBar(loadBoardDataList)
         },
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(MaterialTheme.colors.background)
                 .padding(10.dp)
                 .verticalScroll(scrollState)
         ) {
@@ -61,13 +61,13 @@ fun HomeDetailsUi(navController: NavHostController, loadBoardDataList: LoadBoard
                 fontSize = 16.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.primary
+                color = androidx.compose.material3.MaterialTheme.colorScheme.secondary
             )
             Spacer(modifier = Modifier.height(5.dp))
             Divider(color = Color.Gray, thickness = 1.dp)
             Spacer(modifier = Modifier.height(10.dp))
             StopDetailsUi(loadBoardDataList)
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             LoadDetailsUI(loadBoardDataList)
             Spacer(modifier = Modifier.height(15.dp))
             Divider(color = Color.Gray, thickness = 1.dp)
@@ -96,7 +96,7 @@ fun StopDetailsUi(offerItem: LoadBoardDataList){
         Card(
             shape = RoundedCornerShape(10.dp),
             elevation = 0.dp,
-            backgroundColor = MaterialTheme.colors.primary,
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.onTertiary,
         ) {
             Box(
                 modifier = Modifier.padding(horizontal = 2.dp, vertical = 5.dp)) {
@@ -138,13 +138,15 @@ fun LoadDetailsUI(offerItem: LoadBoardDataList){
                     text = "Broker Name".uppercase(),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Text(
                     text = if (offerItem.CustomerName != null) offerItem.CustomerName!! else "-",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
             }
             Column(
@@ -155,13 +157,15 @@ fun LoadDetailsUI(offerItem: LoadBoardDataList){
                     text = "Phone".uppercase(),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Text(
                     text = if (offerItem.CustomerPhone != null) offerItem.CustomerPhone!! else "-",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
             }
         }
@@ -174,13 +178,15 @@ fun LoadDetailsUI(offerItem: LoadBoardDataList){
                     text = "Equipment".uppercase(),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Text(
                     text = if (offerItem.Equipment != null) offerItem.Equipment!! else "-",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
             }
             Column(
@@ -191,13 +197,15 @@ fun LoadDetailsUI(offerItem: LoadBoardDataList){
                     text = "Temperature".uppercase(),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Text(
                     text = "----Not Available----",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
             }
         }
@@ -210,13 +218,15 @@ fun LoadDetailsUI(offerItem: LoadBoardDataList){
                     text = "Loaded Miles".uppercase(),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Text(
                     text = offerItem.TotalMiles.toString(),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
             }
             Column(
@@ -227,13 +237,15 @@ fun LoadDetailsUI(offerItem: LoadBoardDataList){
                     text = "Total Weight".uppercase(),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Text(
                     text = "----Not Available----",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
             }
         }
@@ -246,13 +258,15 @@ fun LoadDetailsUI(offerItem: LoadBoardDataList){
                     text = "No. Pick Ups".uppercase(),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Text(
                     text = "----Need To Check----",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
             }
             Column(
@@ -263,13 +277,15 @@ fun LoadDetailsUI(offerItem: LoadBoardDataList){
                     text = "No. Deliveries".uppercase(),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Text(
                     text = "----Need To Check----",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
             }
         }
@@ -295,7 +311,8 @@ fun ButtonsLayout(
                     fontWeight = FontWeight.Normal,
                     fontSize = 14.sp,
                     modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
@@ -304,7 +321,8 @@ fun ButtonsLayout(
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                     modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 OfferButtonUi("Place Offer",
@@ -324,7 +342,8 @@ fun ButtonsLayout(
                     fontWeight = FontWeight.Normal,
                     fontSize = 14.sp,
                     modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
@@ -333,7 +352,8 @@ fun ButtonsLayout(
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                     modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 OfferButtonUi("Edit Offer",
@@ -353,7 +373,8 @@ fun ButtonsLayout(
                 fontWeight = FontWeight.Normal,
                 fontSize = 14.sp,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
@@ -362,7 +383,8 @@ fun ButtonsLayout(
                 fontWeight = FontWeight.Medium,
                 fontSize = 18.sp,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
             Spacer(modifier = Modifier.height(6.dp))
             OfferButtonUi("Accept Offer",
@@ -385,7 +407,7 @@ fun OfferButtonUi(
         modifier = modifier
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colors.primary,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
                 shape = RoundedCornerShape(10.dp)
             )
             .padding(horizontal = 10.dp, vertical = 3.dp)
@@ -395,7 +417,7 @@ fun OfferButtonUi(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 16.sp,
-            color = MaterialTheme.colors.primary
+            color = androidx.compose.material3.MaterialTheme.colorScheme.secondary
         )
     }
 }

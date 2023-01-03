@@ -26,7 +26,7 @@ fun HomeDetailsToolBar(item: LoadBoardDataList){
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
-                    color = Color.White,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.offset(x = (-16).dp)
                 )
             },
@@ -36,14 +36,14 @@ fun HomeDetailsToolBar(item: LoadBoardDataList){
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "Back",
-                        tint = Color.White
+                        tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
                     )
                 }
             },
             actions = {
                 ToolBarRight(item)
             },
-            backgroundColor = MaterialTheme.colors.primary,
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
             elevation = 0.dp
         )
     }
@@ -59,7 +59,7 @@ fun ToolBarRight(item: LoadBoardDataList) {
                 text = "Offers".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -68,7 +68,7 @@ fun ToolBarRight(item: LoadBoardDataList) {
                 text = item.TotalOffers.toString(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                 fontSize = 16.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -82,7 +82,7 @@ fun ToolBarRight(item: LoadBoardDataList) {
                 text = "Lowest Offer".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -91,7 +91,7 @@ fun ToolBarRight(item: LoadBoardDataList) {
                 text = "$ ${item.LowestOfferAmount}",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                 fontSize = 16.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center

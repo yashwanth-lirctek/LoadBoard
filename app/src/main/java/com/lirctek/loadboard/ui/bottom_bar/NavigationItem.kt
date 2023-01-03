@@ -27,7 +27,7 @@ fun BottomNav(navController: NavController) {
     }
 
     BottomAppBar(
-        backgroundColor = ProgressBarWhiteColor,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
         cutoutShape = CircleShape,
         contentPadding = PaddingValues(horizontal = 10.dp),
         elevation = 2.dp,
@@ -91,12 +91,13 @@ fun NavItem(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(imageVector  = icon, item.title, tint = Color.White.copy(alpha = iconAlpha))
+            Icon(imageVector  = icon, item.title, tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface.copy(alpha = iconAlpha))
             Text(
                 text = item.title.uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
 
@@ -120,7 +121,7 @@ fun FabButton(navController: NavHostController) {
             Icon(
                 imageVector = Icons.Filled.Home,
                 contentDescription = "Home",
-                tint = Color.White
+                tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
             )
         }
     }
@@ -138,7 +139,7 @@ fun FabButtonDocuments(onClick: () -> Unit) {
         Icon(
             imageVector = Icons.Filled.Add,
             contentDescription = "Add",
-            tint = Color.White
+            tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
         )
     }
 }

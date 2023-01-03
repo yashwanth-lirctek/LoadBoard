@@ -48,7 +48,8 @@ fun SettingsUi(navController: NavController) {
         topBar = {
             SettingsToolBar(navController, isEditButton, isSaveButton)
         },
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background
     ) { paddingValues ->
 
         Column() {

@@ -31,13 +31,13 @@ fun LoadDetailsUi(mainNavController: NavHostController, loadData: LoadsList) {
         bottomBar = {
             LoadDetailsBottomNavigation(loadData = loadData, navController)
         },
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(MaterialTheme.colors.background)
         ){
             LoadDetailsNavigation(navController, mainNavController, loadData)
         }

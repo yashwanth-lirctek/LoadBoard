@@ -26,7 +26,8 @@ import com.lirctek.loadboard.extensions.fontFamily
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun NoInternetScreen() {
-    Surface(modifier = Modifier.fillMaxSize().padding(bottom = 70.dp)) {
+    Surface(modifier = Modifier.fillMaxSize().padding(bottom = 70.dp),
+        color = androidx.compose.material3.MaterialTheme.colorScheme.background) {
 
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -55,7 +56,8 @@ fun NoInternetScreen() {
                 letterSpacing = 2.sp,
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.primary,
+                fontSize = 20.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
             )
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -65,23 +67,24 @@ fun NoInternetScreen() {
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center,
+                fontSize = 20.sp,
                 modifier = Modifier
                     .padding(top = 10.dp, start = 25.dp, end = 25.dp)
                     .fillMaxWidth(),
                 letterSpacing = 1.sp,
-                color = MaterialTheme.colors.primary,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
             )
             //.........................Spacer
             Spacer(modifier = Modifier.height(24.dp))
 
-            val cornerRadius = 16.dp
-            val gradientColor = listOf(Color(0xFFff669f), Color(0xFFff8961))
-            GradientButton(
-                gradientColors = gradientColor,
-                cornerRadius = cornerRadius,
-                nameButton = "Try again".uppercase(),
-                roundedCornerShape = RoundedCornerShape(topStart = 30.dp,bottomEnd = 30.dp)
-            )
+//            val cornerRadius = 16.dp
+//            val gradientColor = listOf(Color(0xFFff669f), Color(0xFFff8961))
+//            GradientButton(
+//                gradientColors = gradientColor,
+//                cornerRadius = cornerRadius,
+//                nameButton = "Try again".uppercase(),
+//                roundedCornerShape = RoundedCornerShape(topStart = 30.dp,bottomEnd = 30.dp)
+//            )
 
         }
     }

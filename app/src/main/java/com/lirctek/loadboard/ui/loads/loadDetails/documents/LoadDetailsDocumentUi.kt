@@ -41,7 +41,8 @@ fun LoadDetailsDocumentUi(mainNavController: NavController, loadData: LoadsList)
                 showDialog = true
             }
         },
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background
     ) { paddingValues ->
 
         if(showDialog)
@@ -55,7 +56,6 @@ fun LoadDetailsDocumentUi(mainNavController: NavController, loadData: LoadsList)
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(MaterialTheme.colors.background)
         ){
         }
     }

@@ -51,14 +51,14 @@ fun LoadsUi(navController: NavController) {
         topBar = {
             HomeOtherToolBar("My Loads")
         },
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface
     ) { paddingValues ->
 
         Column() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.primary)
                     .padding(paddingValues)
                     .horizontalScroll(scrollState)
                     .onGloballyPositioned { coordinates ->
@@ -69,7 +69,7 @@ fun LoadsUi(navController: NavController) {
                 Row(
                     modifier = Modifier
                         .clip(RoundedCornerShape(50.dp))
-                        .background(ToolBarBackColor)
+                        .background(androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant)
                 ) {
 
                     TabText(tabItems = tabItems, currentPage = pagerState.currentPage) { index ->
@@ -87,7 +87,7 @@ fun LoadsUi(navController: NavController) {
                     state = pagerState,
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(color = Color.White)
+                        .background(androidx.compose.material3.MaterialTheme.colorScheme.background)
                 ) { page ->
                     if (page == 0){
                         AvailableUi(navController = navController)
@@ -120,7 +120,7 @@ fun TabText(tabItems: List<String>, currentPage: Int, onClick:(index: Int) -> Un
         Row(
             modifier = Modifier
                 .clip(RoundedCornerShape(50.dp))
-                .background(if (currentPage == index) Color.White else ToolBarBackColor)
+                .background(if (currentPage == index) Color.White else androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant)
                 .clickable(onClick = { onClick(index) })
                 .padding(horizontal = 15.dp, vertical = 6.dp),
         ) {

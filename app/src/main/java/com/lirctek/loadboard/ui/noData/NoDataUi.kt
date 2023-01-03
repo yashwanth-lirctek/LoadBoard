@@ -24,7 +24,8 @@ import com.lirctek.loadboard.extensions.fontFamily
 
 @Composable
 fun NoDataScreen(message: String) {
-    Surface(modifier = Modifier.fillMaxSize().padding(bottom = 70.dp)) {
+    Surface(modifier = Modifier.fillMaxSize().padding(bottom = 70.dp),
+        color = androidx.compose.material3.MaterialTheme.colorScheme.background) {
 
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -38,8 +39,7 @@ fun NoDataScreen(message: String) {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .height(200.dp)
-                    .fillMaxWidth(),
-
+                    .fillMaxWidth()
                 )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -52,8 +52,9 @@ fun NoDataScreen(message: String) {
                     .fillMaxWidth(),
                 letterSpacing = 2.sp,
                 fontFamily = fontFamily,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.primary,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
             )
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -63,11 +64,12 @@ fun NoDataScreen(message: String) {
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center,
+                fontSize = 20.sp,
                 modifier = Modifier
                     .padding(top = 10.dp, start = 25.dp, end = 25.dp)
                     .fillMaxWidth(),
                 letterSpacing = 1.sp,
-                color = MaterialTheme.colors.primary,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
             )
         }
     }

@@ -23,7 +23,7 @@ fun LoadDetailMainToolBar(loadData: LoadsList){
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 20.sp,
-            color = Color.White,
+            color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.offset(x = (-16).dp)
         )
         },
@@ -33,7 +33,7 @@ fun LoadDetailMainToolBar(loadData: LoadsList){
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = Color.White
+                    tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
                 )
             }
         },
@@ -42,11 +42,11 @@ fun LoadDetailMainToolBar(loadData: LoadsList){
                 Icon(
                     imageVector = Icons.Filled.Save,
                     contentDescription = "SaveAction",
-                    tint = Color.White
+                    tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         },
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
         elevation = 0.dp
     )
 }

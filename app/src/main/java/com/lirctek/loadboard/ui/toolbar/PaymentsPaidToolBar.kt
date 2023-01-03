@@ -27,14 +27,14 @@ fun PaymentsPaidToolBar(){
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "Back",
-                        tint = Color.White
+                        tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
                     )
                 }
             },
             actions = {
                 ToolBarRight()
             },
-            backgroundColor = MaterialTheme.colors.primary,
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
             elevation = 0.dp
         )
     }
@@ -50,7 +50,7 @@ fun ToolBarRight() {
                 text = "Paid".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.End
@@ -59,7 +59,7 @@ fun ToolBarRight() {
                 text = "$ 5000",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                 fontSize = 16.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.End
@@ -79,14 +79,14 @@ fun ToolBarLeft() {
                 text = "Settlement : 1645".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 16.sp
             )
             Text(
                 text = "Apr 21, 2000".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                 fontSize = 12.sp
             )
         }

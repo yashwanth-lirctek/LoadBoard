@@ -28,7 +28,7 @@ fun HomeToolBar(navController: NavController){
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 18.sp,
-            color = Color.White
+            color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
         )
         },
         actions = {
@@ -36,14 +36,14 @@ fun HomeToolBar(navController: NavController){
                 Icon(
                     imageVector = Icons.Filled.Notifications,
                     contentDescription = "NotificationAction",
-                    tint = Color.White
+                    tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             IconButton(onClick = { showMenu = !showMenu }) {
                 Icon(
                     imageVector = Icons.Filled.MoreVert,
                     contentDescription = "MoreAction",
-                    tint = Color.White
+                    tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             DropdownMenu(
@@ -66,7 +66,7 @@ fun HomeToolBar(navController: NavController){
                 }
             }
         },
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
         elevation = 0.dp
     )
 }

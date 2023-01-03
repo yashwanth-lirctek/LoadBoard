@@ -25,7 +25,7 @@ fun OffersToolBar(item: OfferDataList){
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
-                    color = Color.White,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.offset(x = (-16).dp)
                 )
             },
@@ -35,14 +35,14 @@ fun OffersToolBar(item: OfferDataList){
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "Back",
-                        tint = Color.White
+                        tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             },
             actions = {
                 ToolBarRight(item)
             },
-            backgroundColor = MaterialTheme.colors.primary,
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
             elevation = 0.dp
         )
     }
@@ -58,7 +58,7 @@ fun ToolBarRight(item: OfferDataList) {
                 text = "Offers".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -67,7 +67,7 @@ fun ToolBarRight(item: OfferDataList) {
                 text = item.totalOffers.toString(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                 fontSize = 16.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -81,7 +81,7 @@ fun ToolBarRight(item: OfferDataList) {
                 text = "Lowest Offer".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -90,7 +90,7 @@ fun ToolBarRight(item: OfferDataList) {
                 text = "$ ${item.lowestOfferAmount}",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                 fontSize = 16.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center

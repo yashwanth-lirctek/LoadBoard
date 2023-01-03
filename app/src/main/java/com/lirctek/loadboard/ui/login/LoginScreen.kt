@@ -1,7 +1,5 @@
 package com.lirctek.loadboard.ui.login
 
-import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -26,14 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.gson.Gson
 import com.lirctek.loadboard.R
 import com.lirctek.loadboard.connectivity.ConnectivityObserver
 import com.lirctek.loadboard.connectivity.NetworkConnectivityObserver
 import com.lirctek.loadboard.extensions.fontFamily
-import com.lirctek.loadboard.ui.dialog.FinalScoreDialog
 import com.lirctek.loadboard.ui.loadingIndicator.DialogBoxLoading
-import kotlinx.coroutines.launch
 
 private lateinit var connectivityObserver: ConnectivityObserver
 
@@ -67,7 +62,8 @@ fun LoginScreen(navController: NavController){
     val isErrorMessage = loginViewModel.errorMessage
 
     Scaffold(modifier = Modifier.fillMaxSize(),
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background
     ) { paddingValues ->
 
         Column(

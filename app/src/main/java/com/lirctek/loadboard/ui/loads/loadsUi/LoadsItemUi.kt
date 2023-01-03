@@ -35,8 +35,8 @@ fun LoadsItemUi(
         Card(
             shape = RoundedCornerShape(10.dp),
             elevation = 2.dp,
-            backgroundColor = CardBackgroundColor,
-            modifier = Modifier
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.tertiary,
+            modifier = Modifier.padding(top = 15.dp)
                 .fillMaxWidth()
                 .clickable {
                     onLayoutClick(item)
@@ -51,7 +51,7 @@ fun LoadsItemUi(
                     Card(
                         shape = RoundedCornerShape(10.dp),
                         elevation = 0.dp,
-                        backgroundColor = MaterialTheme.colors.primary,
+                        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.onTertiary,
                     ) {
                         Box(
                             modifier = Modifier.padding(horizontal = 2.dp, vertical = 5.dp)) {
@@ -76,7 +76,7 @@ fun LoadsItemUi(
             Card(
                 shape = RoundedCornerShape(10.dp),
                 elevation = 2.dp,
-                backgroundColor = Color.White,
+                backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.onTertiary,
                 modifier = Modifier
                     .width(100.dp)
             ){
@@ -86,7 +86,7 @@ fun LoadsItemUi(
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colors.primary,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.fillMaxWidth()
                         .padding(horizontal = 10.dp, vertical = 3.dp)
                 )
@@ -106,13 +106,15 @@ fun CustomerBottomUi(item: LoadsList){
                 text = "Load Type".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
                 text = if (item.loadType != null) item.loadType!! else "-",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
         Column(
@@ -123,13 +125,15 @@ fun CustomerBottomUi(item: LoadsList){
                 text = "Loaded Miles".uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
                 text = "----Not Getting-------",
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer
             )
         }
     }

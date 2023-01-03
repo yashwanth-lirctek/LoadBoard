@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -48,7 +49,8 @@ fun HomeUi(navController: NavController) {
         topBar = {
             HomeToolBar(navController)
         },
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = MaterialTheme.colorScheme.background
     ) { paddingValues ->
 
         Box(modifier = Modifier.padding(paddingValues)){

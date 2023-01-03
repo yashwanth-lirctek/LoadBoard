@@ -3,6 +3,7 @@ package com.lirctek.loadboard.ui.bottom_bar
 import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.BottomNavigation
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +26,7 @@ fun LoadDetailsBottomNavigation(loadData: LoadsList, navController: NavHostContr
     )
 
     BottomNavigation(
-        backgroundColor = ProgressBarWhiteColor,
+        backgroundColor = MaterialTheme.colorScheme.surface,
         elevation = 2.dp,
         modifier = Modifier.height(70.dp)
     ) {

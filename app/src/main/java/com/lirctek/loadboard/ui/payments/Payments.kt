@@ -46,7 +46,8 @@ fun PaymentsUi(navController: NavController) {
         topBar = {
             HomeOtherToolBar("Payments")
         },
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background
     ) { paddingValues ->
 
         Column() {
