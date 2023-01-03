@@ -39,7 +39,7 @@ fun AcceptOfferDetailDialog(
                         onDismissOffer()
                     }
                 ) {
-                    Text(text = "Dismiss",  fontFamily = fontFamily,
+                    Text(text = "Dismiss".uppercase(),  fontFamily = fontFamily,
                         fontWeight = FontWeight.Medium)
                 }
             },
@@ -47,7 +47,7 @@ fun AcceptOfferDetailDialog(
                 TextButton(onClick = {
                     onAcceptOffer(offerDataList)
                 }) {
-                    Text(text = "Yes",  fontFamily = fontFamily,
+                    Text(text = "Yes".uppercase(),  fontFamily = fontFamily,
                         fontWeight = FontWeight.Medium)
                 }
             }

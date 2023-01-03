@@ -18,7 +18,6 @@ import androidx.navigation.compose.rememberNavController
 import com.lirctek.loadboard.data.reqres.LoadsList
 import com.lirctek.loadboard.ui.bottom_bar.LoadDetailsBottomNavigation
 import com.lirctek.loadboard.ui.navigation.LoadDetailsNavigation
-import com.lirctek.loadboard.ui.toolbar.LoadDetailToolBar
 
 @Composable
 fun LoadDetailsUi(mainNavController: NavHostController, loadData: LoadsList) {
@@ -29,9 +28,6 @@ fun LoadDetailsUi(mainNavController: NavHostController, loadData: LoadsList) {
     val navController = rememberNavController()
 
     Scaffold(modifier = Modifier.fillMaxSize(),
-        topBar = {
-            LoadDetailToolBar(loadData = loadData)
-        },
         bottomBar = {
             LoadDetailsBottomNavigation(loadData = loadData, navController)
         },
@@ -42,14 +38,8 @@ fun LoadDetailsUi(mainNavController: NavHostController, loadData: LoadsList) {
                 .fillMaxSize()
                 .padding(paddingValues)
                 .background(MaterialTheme.colors.background)
-                .padding(10.dp)
-                .verticalScroll(scrollState)
         ){
-            Column(
-                modifier = Modifier.fillMaxSize().padding(paddingValues)
-            ) {
-                LoadDetailsNavigation(navController, mainNavController, loadData)
-            }
+            LoadDetailsNavigation(navController, mainNavController, loadData)
         }
     }
 }

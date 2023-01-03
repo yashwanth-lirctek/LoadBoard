@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -118,9 +119,26 @@ fun FabButton(navController: NavHostController) {
         ) {
             Icon(
                 imageVector = Icons.Filled.Home,
-                contentDescription = "Connectivity",
+                contentDescription = "Home",
                 tint = Color.White
             )
         }
+    }
+}
+
+@Composable
+fun FabButtonDocuments(onClick: () -> Unit) {
+
+    FloatingActionButton(
+        onClick = {onClick()},
+        backgroundColor = MaterialTheme.colors.primary,
+        elevation = FloatingActionButtonDefaults.elevation(2.dp, 4.dp, 2.dp, 2.dp),
+
+        ) {
+        Icon(
+            imageVector = Icons.Filled.Add,
+            contentDescription = "Add",
+            tint = Color.White
+        )
     }
 }

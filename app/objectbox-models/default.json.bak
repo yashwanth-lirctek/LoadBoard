@@ -1,0 +1,87 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:9123206885399145858",
+      "lastPropertyId": "12:9140834607206610638",
+      "name": "Preferences",
+      "properties": [
+        {
+          "id": "1:8146604772114887834",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7872356150848999805",
+          "name": "isUserLoggedIn",
+          "type": 1
+        },
+        {
+          "id": "3:6889712303493485362",
+          "name": "token",
+          "type": 9
+        },
+        {
+          "id": "4:8091555676761729597",
+          "name": "userId",
+          "type": 5
+        },
+        {
+          "id": "5:4391075042139993825",
+          "name": "firstName",
+          "type": 9
+        },
+        {
+          "id": "6:8212811019059238576",
+          "name": "lastName",
+          "type": 9
+        },
+        {
+          "id": "7:6953272494916032716",
+          "name": "email",
+          "type": 9
+        },
+        {
+          "id": "8:9092541169716105927",
+          "name": "driverId",
+          "type": 5
+        },
+        {
+          "id": "9:3856484262566708573",
+          "name": "splitFullLoad",
+          "type": 5
+        },
+        {
+          "id": "10:2143721599565448948",
+          "name": "isFullLoad",
+          "type": 5
+        },
+        {
+          "id": "11:6707353304886756046",
+          "name": "isLTL",
+          "type": 5
+        },
+        {
+          "id": "12:9140834607206610638",
+          "name": "phoneNo",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:9123206885399145858",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

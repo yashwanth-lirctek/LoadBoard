@@ -26,11 +26,12 @@ fun LoadDetailsBottomNavigation(loadData: LoadsList, navController: NavHostContr
 
     BottomNavigation(
         backgroundColor = ProgressBarWhiteColor,
-        elevation = 2.dp
+        elevation = 2.dp,
+        modifier = Modifier.height(70.dp)
     ) {
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().height(70.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
