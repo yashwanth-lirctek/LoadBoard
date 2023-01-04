@@ -9,6 +9,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.FabPosition
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -37,7 +39,10 @@ fun LoadDetailsDocumentUi(mainNavController: NavController, loadData: LoadsList)
         },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
-            FabButtonDocuments(){
+            FabButtonDocuments(
+                imageVector = Icons.Filled.Add,
+                description = "Add"
+            ){
                 showDialog = true
             }
         },

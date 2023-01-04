@@ -6,10 +6,12 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -128,18 +130,40 @@ fun FabButton(navController: NavHostController) {
 }
 
 @Composable
-fun FabButtonDocuments(onClick: () -> Unit) {
+fun FabButtonDocuments(imageVector: ImageVector, description: String, onClick: () -> Unit) {
 
     FloatingActionButton(
         onClick = {onClick()},
         backgroundColor = MaterialTheme.colors.primary,
         elevation = FloatingActionButtonDefaults.elevation(2.dp, 4.dp, 2.dp, 2.dp),
-
         ) {
         Icon(
-            imageVector = Icons.Filled.Add,
-            contentDescription = "Add",
+            imageVector = imageVector,
+            contentDescription = description,
             tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
         )
     }
+}
+
+@Composable
+fun FabButtonEditOffer(imageVector: ImageVector, description: String, onClick: () -> Unit) {
+
+    ExtendedFloatingActionButton(
+        text = {
+            Text(
+                text = "About",
+                fontFamily = fontFamily,
+                fontWeight = FontWeight.Medium
+            )
+        },
+        onClick = {onClick()},
+        backgroundColor = MaterialTheme.colors.primary,
+        elevation = FloatingActionButtonDefaults.elevation(2.dp, 4.dp, 2.dp, 2.dp),
+        icon = {
+            Icon(
+                imageVector = imageVector,
+                contentDescription = description
+            )
+        }
+    )
 }

@@ -9,10 +9,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuDefaults
+import androidx.compose.material.FabPosition
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.rememberScaffoldState
@@ -33,6 +35,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.lirctek.loadboard.data.reqres.OfferDataList
 import com.lirctek.loadboard.extensions.fontFamily
+import com.lirctek.loadboard.ui.bottom_bar.FabButtonDocuments
+import com.lirctek.loadboard.ui.bottom_bar.FabButtonEditOffer
 import com.lirctek.loadboard.ui.dialog.CustomCalendarView
 import com.lirctek.loadboard.ui.offers.active.OffersActiveViewModel
 import com.lirctek.loadboard.ui.textFieldUi.myAppTextFieldColors
@@ -106,7 +110,15 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
             OffersEditToolBar(offerItem)
         },
         scaffoldState = scaffoldState,
-        backgroundColor = MaterialTheme.colorScheme.background
+        backgroundColor = MaterialTheme.colorScheme.background,
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+            FabButtonEditOffer(
+                imageVector = Icons.Filled.Add,
+                description = "Add Description"
+            ){
+            }
+        }
     ) { paddingValues ->
 
         MaterialDialog(
