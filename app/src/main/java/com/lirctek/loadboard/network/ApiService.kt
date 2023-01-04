@@ -21,4 +21,10 @@ interface ApiService {
     @POST(ApiEndpoint.GET_TRIP_LOAD)
     suspend fun getTripLoadList(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: LoadsRequest): Response<List<LoadsList>>
 
+    @POST(ApiEndpoint.ADD_EDIT_DESCRIPTION)
+    suspend fun addEditDescription(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: DescriptionRequest): Response<DescriptionResponse>
+
+    @POST(ApiEndpoint.GET_DESCRIPTION)
+    suspend fun getDescription(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: DescriptionListRequest): Response<List<DescriptionListResponse>>
+
 }

@@ -10,7 +10,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lirctek.loadboard.ui.textFieldUi.OutLineTextField
+import com.lirctek.loadboard.ui.splash.textFieldUi.OutLineTextField
 
 @Composable
 fun PasswordUi() {

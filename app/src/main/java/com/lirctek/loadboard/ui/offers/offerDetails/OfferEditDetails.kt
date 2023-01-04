@@ -1,6 +1,5 @@
 package com.lirctek.loadboard.ui.offers.offerDetails
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -10,11 +9,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.FabPosition
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.rememberScaffoldState
@@ -22,8 +21,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -34,21 +31,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.lirctek.loadboard.data.reqres.DescriptionRequest
 import com.lirctek.loadboard.data.reqres.OfferDataList
 import com.lirctek.loadboard.extensions.fontFamily
-import com.lirctek.loadboard.ui.bottom_bar.FabButtonDocuments
-import com.lirctek.loadboard.ui.bottom_bar.FabButtonEditOffer
-import com.lirctek.loadboard.ui.dialog.CustomCalendarView
-import com.lirctek.loadboard.ui.offers.active.OffersActiveViewModel
-import com.lirctek.loadboard.ui.textFieldUi.myAppTextFieldColors
-import com.lirctek.loadboard.ui.theme.LoadBoardTheme
+import com.lirctek.loadboard.ui.commonUi.floatingButtons.ExtendedFloatingActionButtonUI
+import com.lirctek.loadboard.ui.commonUi.floatingButtons.FloatingActionButtonUI
+import com.lirctek.loadboard.ui.commonUi.textField.TextFieldUI
+import com.lirctek.loadboard.ui.commonUi.textField.textFieldColors
+import com.lirctek.loadboard.ui.dialog.AddDescriptionDialog
+import com.lirctek.loadboard.ui.splash.textFieldUi.myAppTextFieldColors
 import com.lirctek.loadboard.ui.toolbar.OffersEditToolBar
-import com.lirctek.loadboard.ui.toolbar.OffersToolBar
 import com.vanpra.composematerialdialogs.MaterialDialog
-import com.vanpra.composematerialdialogs.datetime.date.DatePickerColors
 import com.vanpra.composematerialdialogs.datetime.date.DatePickerDefaults
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
-import com.vanpra.composematerialdialogs.datetime.time.TimePickerColors
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -60,6 +55,17 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope()
+
+    val descriptionList = viewModel.mGetDescription.value
+
+    var descriptions = ArrayList<String>()
+    descriptions.add("Select Description")
+    descriptions.add("Testing")
+//    descriptionList?.forEach { item ->
+//        descriptions.add(item.Name!!)
+//    }
+
+    var showDialog by remember { mutableStateOf(false) }
 
     var offerAmount by remember {
         mutableStateOf("")
@@ -83,7 +89,7 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
     }
 
     var condition by remember {
-        mutableStateOf("")
+        mutableStateOf(descriptions[0])
     }
     var conditionError by remember {
         mutableStateOf(false)
@@ -104,6 +110,18 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
         }
     }
 
+    var name by remember {
+        mutableStateOf("")
+    }
+
+    var description by remember {
+        mutableStateOf("")
+    }
+
+    var expanded by remember {
+        mutableStateOf(false)
+    }
+
     val dateDialogStateProposedPickup = rememberMaterialDialogState()
     val dateDialogStateValidUntil = rememberMaterialDialogState()
 
@@ -115,13 +133,33 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
         backgroundColor = MaterialTheme.colorScheme.background,
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
-            FabButtonEditOffer(
+            ExtendedFloatingActionButtonUI(
+                text = "Add Description",
                 imageVector = Icons.Filled.Add,
-                description = "Add Description"
-            ){
-            }
+                imageDescription = "Add Description",
+                onClickExtendedFloatingActionButton = {
+                    showDialog = true
+                }
+            )
         }
     ) { paddingValues ->
+
+        if(showDialog)
+            AddDescriptionDialog(
+                name = name,
+                description = description,
+                setShowDialog = {
+                    showDialog = it
+                },
+                onNameChanged = {name = it},
+                onDescriptionChanged = {description = it},
+                onClick = {name, description ->
+                    val descriptionRequest = DescriptionRequest()
+                    descriptionRequest.Name = name
+                    descriptionRequest.Description = description
+                    viewModel.addDescription(descriptionRequest)
+                }
+            )
 
         MaterialDialog(
             dialogState = dateDialogStateProposedPickup,
@@ -225,18 +263,26 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     .fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(2.dp))
-            EditTextFieldWithLendingIcon(
+            TextFieldUI(
                 value = offerAmount,
-                error = offerAmountError,
                 singleLine = true,
                 autoCorrect = false,
+                isError = offerAmountError,
+                readOnly = false,
+                trailingIcon = null,
+                leadingIcon = Icons.Filled.AttachMoney,
+                imageDescription = "Offer Amount",
+                keyboardType = KeyboardType.Number,
                 modifier = Modifier
                     .padding(horizontal = 30.dp)
-                    .fillMaxWidth()
-            ){
-                offerAmount = it
-                offerAmountError = false
-            }
+                    .wrapContentWidth(),
+                onValueChanged = {
+                    offerAmount = it
+                    offerAmountError = false
+                },
+                onIconClick = {}
+            )
+
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = "Valid Until".uppercase(),
@@ -250,11 +296,15 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     .fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(2.dp))
-            EditTextFieldWithTralingIcon(
+            TextFieldUI(
                 value = validUntil,
-                error = validUntilError,
                 singleLine = true,
                 autoCorrect = false,
+                isError = validUntilError,
+                readOnly = false,
+                trailingIcon = Icons.Filled.CalendarToday,
+                leadingIcon = null,
+                imageDescription = "Valid Until",
                 modifier = Modifier
                     .padding(horizontal = 30.dp)
                     .fillMaxWidth()
@@ -266,7 +316,7 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     validUntil = it
                     validUntilError = false
                 },
-                onClick = {
+                onIconClick = {
                     dateDialogStateValidUntil.show()
                 }
             )
@@ -274,7 +324,9 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(end = 10.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 10.dp)
             ) {
                 Text(
                     text = "Conditions".uppercase(),
@@ -324,18 +376,63 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     .padding(horizontal = 10.dp)
                     .fillMaxWidth()
             )
-            EditTextFieldWithNoIcon(
-                value = condition,
-                error = conditionError,
-                singleLine = false,
-                autoCorrect = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-            ){
-                condition = it
-                conditionError = false
+
+            ExposedDropdownMenuBox(
+                expanded = expanded,
+                onExpandedChange = {
+                    expanded = !expanded
+                }
+            ) {
+//                TextFieldUI(
+//                    value = condition,
+//                    singleLine = false,
+//                    autoCorrect = true,
+//                    isError = conditionError,
+//                    readOnly = true,
+//                    trailingIcon = Icons.Filled.ArrowDropDown,
+//                    leadingIcon = null,
+//                    imageDescription = "Condition",
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(10.dp),
+//                    onValueChanged = {
+//                        condition = it
+//                        conditionError = false
+//                    },
+//                    onIconClick = {}
+//                )
+                
+                
+                TextField(
+                    value = condition,
+                    onValueChange = {},
+                    readOnly = true,
+                    trailingIcon = {
+                       androidx.compose.material3.ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) 
+                    },
+                    colors = textFieldColors(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
+                )
+
+                ExposedDropdownMenuBox(expanded = expanded,
+                    onExpandedChange = {expanded = false}) {
+
+                }
+
+                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                    descriptions.forEach { entry ->
+                        androidx.compose.material.DropdownMenuItem(onClick = {
+                            condition = entry
+                            expanded = false
+                        }) {
+                            Text(text = entry)
+                        }
+                    }
+                }
             }
+
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = "Proposed Pickup".uppercase(),
@@ -347,11 +444,15 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     .padding(horizontal = 10.dp)
                     .fillMaxWidth()
             )
-            EditTextFieldWithTralingIcon(
+            TextFieldUI(
                 value = proposedPickup,
-                error = proposedPickupError,
                 singleLine = true,
                 autoCorrect = false,
+                isError = proposedPickupError,
+                readOnly = false,
+                trailingIcon = null,
+                leadingIcon = null,
+                imageDescription = "Proposed Pickup",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
@@ -362,7 +463,7 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     proposedPickup = it
                     proposedPickupError = false
                 },
-                onClick = {
+                onIconClick = {
                     dateDialogStateProposedPickup.show()
                 }
             )
@@ -490,113 +591,6 @@ fun PreviousAndBookNowLayout(
             )
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun EditTextFieldWithLendingIcon(
-    value: String,
-    error: Boolean,
-    singleLine: Boolean,
-    autoCorrect: Boolean,
-    modifier: Modifier,
-    onValueChanged: (value: String) -> Unit
-){
-    TextField(
-        value = value,
-        modifier = modifier.wrapContentWidth(),
-        onValueChange = {
-            if (it.length <= 5) onValueChanged(it)
-        },
-        colors = myAppTextFieldColors(),
-        textStyle = TextStyle(
-            fontSize = 18.sp,
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Medium,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.tertiaryContainer
-        ),
-        singleLine = singleLine,
-        isError = error,
-        leadingIcon = {
-            Icon(imageVector = Icons.Filled.AttachMoney, contentDescription = "Doller")
-        },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number,
-            autoCorrect = autoCorrect
-        )
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun EditTextFieldWithTralingIcon(
-    value: String,
-    error: Boolean,
-    singleLine: Boolean,
-    autoCorrect: Boolean,
-    modifier: Modifier,
-    onValueChanged: (value: String) -> Unit,
-    onClick: () -> Unit
-){
-    TextField(
-        value = value,
-        modifier = modifier,
-        onValueChange = {
-            onValueChanged(it)
-        },
-        colors = myAppTextFieldColors(),
-        readOnly = true,
-        textStyle = TextStyle(
-            fontSize = 18.sp,
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Medium,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.tertiaryContainer
-        ),
-        singleLine = singleLine,
-        isError = error,
-        trailingIcon = {
-            IconButton(onClick = onClick) {
-                Icon(imageVector = Icons.Filled.CalendarToday, contentDescription = "Calander")
-            }
-
-        }
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun EditTextFieldWithNoIcon(
-    value: String,
-    error: Boolean,
-    singleLine: Boolean,
-    autoCorrect: Boolean,
-    modifier: Modifier,
-    onValueChanged: (value: String) -> Unit
-){
-    TextField(
-        value = value,
-        modifier = modifier,
-        onValueChange = {
-            onValueChanged(it)
-        },
-        colors = myAppTextFieldColors(),
-        textStyle = TextStyle(
-            fontSize = 18.sp,
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.tertiaryContainer
-        ),
-        singleLine = singleLine,
-        isError = error,
-        maxLines = 5,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Text,
-            autoCorrect = autoCorrect,
-            imeAction = ImeAction.Next
-        )
-    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -129,43 +129,42 @@ fun FabButton(navController: NavHostController) {
     }
 }
 
-@Composable
-fun FabButtonDocuments(imageVector: ImageVector, description: String, onClick: () -> Unit) {
-
-    FloatingActionButton(
-        onClick = {onClick()},
-        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
-        elevation = FloatingActionButtonDefaults.elevation(2.dp, 4.dp, 2.dp, 2.dp),
-        ) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = description,
-            tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
-        )
-    }
-}
-
-@Composable
-fun FabButtonEditOffer(imageVector: ImageVector, description: String, onClick: () -> Unit) {
-
-    ExtendedFloatingActionButton(
-        text = {
-            Text(
-                text = "Add Description".uppercase(),
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.Medium,
-                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
-            )
-        },
-        onClick = {onClick()},
-        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
-        elevation = FloatingActionButtonDefaults.elevation(2.dp, 4.dp, 2.dp, 2.dp),
-        icon = {
-            Icon(
-                imageVector = imageVector,
-                contentDescription = description,
-                tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
-            )
-        }
-    )
-}
+//@Composable
+//fun FabButtonDocuments(imageVector: ImageVector, description: String, onClick: () -> Unit) {
+//
+//    FloatingActionButton(
+//        onClick = {onClick()},
+//        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
+//        elevation = FloatingActionButtonDefaults.elevation(2.dp, 4.dp, 2.dp, 2.dp),
+//        ) {
+//        Icon(
+//            imageVector = imageVector,
+//            contentDescription = description,
+//            tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
+//        )
+//    }
+//}
+//
+//@Composable
+//fun FabButtonEditOffer(imageVector: ImageVector, description: String, onClick: () -> Unit) {
+//
+//    ExtendedFloatingActionButton(
+//        text = {
+//            Text(
+//                text = "Add Description".uppercase(),
+//                fontFamily = fontFamily,
+//                fontWeight = FontWeight.Medium,
+//                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
+//            )
+//        },
+//        onClick = {onClick()},
+//        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
+//        elevation = FloatingActionButtonDefaults.elevation(2.dp, 4.dp, 2.dp, 2.dp),
+//        icon = {
+//            Icon(
+//                imageVector = imageVector,
+//                contentDescription = description,
+//                tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
+//            )
+//        }
+//    )

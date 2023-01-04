@@ -1,28 +1,46 @@
 package com.lirctek.loadboard.ui.dialog
 
+import android.R
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.lirctek.loadboard.data.reqres.DescriptionRequest
 import com.lirctek.loadboard.extensions.fontFamily
+import com.lirctek.loadboard.ui.offers.offerDetails.OfferEditViewModel
 
 @Composable
-fun LoadDocumentsDialog(setShowDialog: (Boolean) -> Unit, setValue: (String) -> Unit) {
+fun AddDescriptionDialog(
+    name: String,
+    description: String,
+    setShowDialog: (Boolean) -> Unit,
+    onNameChanged: (String) -> Unit,
+    onDescriptionChanged: (String) -> Unit,
+    onClick: (String,String) -> Unit
+){
 
-    var documentType by remember {
-        mutableStateOf("BOL")
+    val focusRequester = remember { FocusRequester() }
+    var isNameError by remember {
+        mutableStateOf(false)
+    }
+    var isDescriptionError by remember {
+        mutableStateOf(false)
     }
 
     Dialog(onDismissRequest = { setShowDialog(false) }) {
@@ -41,7 +59,7 @@ fun LoadDocumentsDialog(setShowDialog: (Boolean) -> Unit, setValue: (String) -> 
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Select Document Type",
+                            text = "Add Description",
                             style = TextStyle(
                                 fontSize = 24.sp,
                                 fontFamily = fontFamily,
@@ -51,7 +69,7 @@ fun LoadDocumentsDialog(setShowDialog: (Boolean) -> Unit, setValue: (String) -> 
                         Icon(
                             imageVector = Icons.Filled.Cancel,
                             contentDescription = "",
-                            tint = colorResource(android.R.color.darker_gray),
+                            tint = colorResource(R.color.darker_gray),
                             modifier = Modifier
                                 .width(30.dp)
                                 .height(30.dp)
@@ -61,81 +79,54 @@ fun LoadDocumentsDialog(setShowDialog: (Boolean) -> Unit, setValue: (String) -> 
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    CountrySelection(){
-                        documentType = it
-                    }
+                    OutlinedTextField(
+                        value = name,
+                        onValueChange = {
+                                        onNameChanged(it)
+                        },
+                        label = { Text(text = "Name") },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .focusRequester(focusRequester = focusRequester),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text)
+                    )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    OutlinedTextField(
+                        value = description,
+                        onValueChange = {
+                                        onDescriptionChanged(it)
+                        },
+                        label = { Text(text = "Description") },
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text)
+                    )
 
                     Spacer(modifier = Modifier.height(20.dp))
 
                     Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
                         Button(
                             onClick = {
-                                setValue(documentType)
+                                if (name.isEmpty()){
+                                   isNameError = true
+                                    return@Button
+                                }
+                                if (description.isEmpty()){
+                                   isDescriptionError = true
+                                    return@Button
+                                }
                                 setShowDialog(false)
+                                onClick(name,description)
                             },
                             shape = RoundedCornerShape(10.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(50.dp)
                         ) {
-                            Text(text = "Upload Image")
+                            Text(text = "Add")
                         }
                     }
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun CountrySelection(onSelect: (value: String) -> Unit) {
-    val documentsList = listOf(
-        "BOL",
-        "POD",
-        "Lumper Fee Receipt"
-    )
-
-    var expanded by remember {
-        mutableStateOf(false)
-    }
-
-    var selectedOptionText by remember {
-        mutableStateOf(documentsList[0])
-    }
-
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = {
-            expanded = !expanded
-        }
-    ) {
-        OutlinedTextField(
-            value = selectedOptionText,
-            readOnly = true,
-            onValueChange = {
-                onSelect(it)
-                selectedOptionText = it
-            },
-            label = { Text(text = "Document Type") },
-            modifier = Modifier.fillMaxWidth(),
-            trailingIcon = {
-                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-            }
-        )
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-        ) {
-            documentsList.forEach { entry ->
-                DropdownMenuItem(
-                    onClick = {
-                        onSelect(entry)
-                        selectedOptionText = entry
-                        expanded = false
-                    },
-                ){
-                    Text(text = entry)
                 }
             }
         }

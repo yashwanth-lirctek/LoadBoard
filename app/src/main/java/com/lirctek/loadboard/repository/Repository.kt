@@ -1,7 +1,5 @@
 package com.lirctek.loadboard.repository
 
-import android.util.Log
-import com.google.gson.Gson
 import com.lirctek.loadboard.data.local.Preferences
 import com.lirctek.loadboard.data.reqres.*
 import com.lirctek.loadboard.network.ApiHelper
@@ -92,6 +90,18 @@ class Repository @Inject constructor(
                 return Result.failure(TestException("Unable to get data please try again"))
             }
         }
+    }
+
+    suspend fun addEditDescription(request: DescriptionRequest): NetworkResponse<DescriptionResponse> {
+        return apiHelper.addEditDescription(getNewToken(), request)
+    }
+
+    suspend fun getDescription(): NetworkResponse<List<DescriptionListResponse>> {
+        val descriptionListRequest = DescriptionListRequest(
+            CompanyId = Preferences.getAppPref().driverId.toInt(),
+            Type = "LBOffers"
+        )
+        return apiHelper.getDescription(getNewToken(), descriptionListRequest)
     }
 
     fun getToken(): String {

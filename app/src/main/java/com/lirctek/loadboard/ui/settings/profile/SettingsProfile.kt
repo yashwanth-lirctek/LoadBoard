@@ -15,7 +15,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lirctek.loadboard.extensions.fontFamily
-import com.lirctek.loadboard.ui.textFieldUi.OutLineTextField
+import com.lirctek.loadboard.ui.splash.textFieldUi.OutLineTextField
 
 @Composable
 fun ProfileUi(){

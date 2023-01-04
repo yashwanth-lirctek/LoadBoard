@@ -1,11 +1,10 @@
 package com.lirctek.loadboard.ui.commonUi.textField
 
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -13,7 +12,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import com.lirctek.loadboard.extensions.fontFamily
-import com.lirctek.loadboard.ui.textFieldUi.myAppTextFieldColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +35,7 @@ fun TextFieldUI(
         onValueChange = {
             onValueChanged(it)
         },
-        colors = myAppTextFieldColors(),
+        colors = textFieldColors(),
         textStyle = TextStyle(
             fontSize = 18.sp,
             fontFamily = fontFamily,
@@ -83,3 +81,21 @@ fun TextFieldUI(
         }
     )
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun textFieldColors() = TextFieldDefaults.textFieldColors(
+    textColor = MaterialTheme.colorScheme.tertiaryContainer,
+    disabledTextColor = MaterialTheme.colorScheme.onSecondary,
+    cursorColor = MaterialTheme.colorScheme.onSecondary,
+    containerColor = Color.Transparent,
+    unfocusedTrailingIconColor = MaterialTheme.colorScheme.onTertiaryContainer,
+    focusedTrailingIconColor = MaterialTheme.colorScheme.onSecondary,
+    unfocusedLeadingIconColor = MaterialTheme.colorScheme.onTertiaryContainer,
+    focusedLeadingIconColor = MaterialTheme.colorScheme.onSecondary,
+    focusedIndicatorColor = MaterialTheme.colorScheme.tertiaryContainer,
+    unfocusedIndicatorColor = MaterialTheme.colorScheme.onTertiaryContainer,
+    errorIndicatorColor = Color.Red,
+    errorLeadingIconColor = Color.Red,
+    errorTrailingIconColor =Color.Red
+)

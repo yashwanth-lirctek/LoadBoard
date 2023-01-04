@@ -51,5 +51,12 @@ class ApiHelperImpl @Inject constructor(
         return safeApiCall { apiServiceEld.getTripLoadList(header, request).body()!! }
     }
 
+    override suspend fun addEditDescription(header: String, request: DescriptionRequest): NetworkResponse<DescriptionResponse>{
+        return safeApiCall { apiServiceEld.addEditDescription(header, request).body()!! }
+    }
+
+    override suspend fun getDescription(header: String, request: DescriptionListRequest): NetworkResponse<List<DescriptionListResponse>>{
+        return safeApiCall { apiServiceEld.getDescription(header, request).body()!! }
+    }
 
 }

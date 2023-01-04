@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:9123206885399145858",
-      "lastPropertyId": "12:9140834607206610638",
+      "lastPropertyId": "13:5736334381815286983",
       "name": "Preferences",
       "properties": [
         {
@@ -68,6 +68,11 @@
           "id": "12:9140834607206610638",
           "name": "phoneNo",
           "type": 9
+        },
+        {
+          "id": "13:5736334381815286983",
+          "name": "companyId",
+          "type": 5
         }
       ],
       "relations": []

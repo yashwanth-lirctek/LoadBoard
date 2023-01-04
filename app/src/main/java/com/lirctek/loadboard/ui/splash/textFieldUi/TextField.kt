@@ -1,4 +1,4 @@
-package com.lirctek.loadboard.ui.textFieldUi
+package com.lirctek.loadboard.ui.splash.textFieldUi
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField

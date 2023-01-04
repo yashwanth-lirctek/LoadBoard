@@ -20,4 +20,10 @@ interface ApiHelper {
     @POST(ApiEndpoint.GET_TRIP_LOAD)
     suspend  fun getTripLoadList(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: LoadsRequest): NetworkResponse<List<LoadsList>>
 
+    @POST(ApiEndpoint.ADD_EDIT_DESCRIPTION)
+    suspend  fun addEditDescription(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: DescriptionRequest): NetworkResponse<DescriptionResponse>
+
+    @POST(ApiEndpoint.GET_DESCRIPTION)
+    suspend  fun getDescription(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: DescriptionListRequest): NetworkResponse<List<DescriptionListResponse>>
+
 }
