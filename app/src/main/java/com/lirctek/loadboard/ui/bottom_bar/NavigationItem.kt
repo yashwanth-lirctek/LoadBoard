@@ -134,7 +134,7 @@ fun FabButtonDocuments(imageVector: ImageVector, description: String, onClick: (
 
     FloatingActionButton(
         onClick = {onClick()},
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
         elevation = FloatingActionButtonDefaults.elevation(2.dp, 4.dp, 2.dp, 2.dp),
         ) {
         Icon(
@@ -151,18 +151,20 @@ fun FabButtonEditOffer(imageVector: ImageVector, description: String, onClick: (
     ExtendedFloatingActionButton(
         text = {
             Text(
-                text = "About",
+                text = "Add Description".uppercase(),
                 fontFamily = fontFamily,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
             )
         },
         onClick = {onClick()},
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
         elevation = FloatingActionButtonDefaults.elevation(2.dp, 4.dp, 2.dp, 2.dp),
         icon = {
             Icon(
                 imageVector = imageVector,
-                contentDescription = description
+                contentDescription = description,
+                tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
             )
         }
     )
