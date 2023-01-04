@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,6 +41,7 @@ import com.lirctek.loadboard.ui.bottom_bar.FabButtonEditOffer
 import com.lirctek.loadboard.ui.dialog.CustomCalendarView
 import com.lirctek.loadboard.ui.offers.active.OffersActiveViewModel
 import com.lirctek.loadboard.ui.textFieldUi.myAppTextFieldColors
+import com.lirctek.loadboard.ui.theme.LoadBoardTheme
 import com.lirctek.loadboard.ui.toolbar.OffersEditToolBar
 import com.lirctek.loadboard.ui.toolbar.OffersToolBar
 import com.vanpra.composematerialdialogs.MaterialDialog
@@ -592,6 +594,30 @@ fun EditTextFieldWithNoIcon(
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text,
             autoCorrect = autoCorrect,
+            imeAction = ImeAction.Next
+        )
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    TextField(
+        value = "ywefgr",
+        modifier = Modifier.fillMaxWidth(),
+        onValueChange = {
+        },
+        colors = myAppTextFieldColors(),
+        textStyle = TextStyle(
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.tertiaryContainer
+        ),
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text,
+            autoCorrect = false,
             imeAction = ImeAction.Next
         )
     )
