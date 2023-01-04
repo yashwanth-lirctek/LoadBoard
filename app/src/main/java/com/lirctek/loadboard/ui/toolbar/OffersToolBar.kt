@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,6 +42,47 @@ fun OffersToolBar(item: OfferDataList){
             },
             actions = {
                 ToolBarRight(item)
+            },
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
+            elevation = 0.dp
+        )
+    }
+}
+
+@Composable
+fun OffersEditToolBar(item: OfferDataList){
+    Box {
+        TopAppBar(
+            title = {
+                Text(
+                    text = if (item.loadNumber != null) "#${item.loadNumber}" else "-",
+                    fontFamily = fontFamily,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 18.sp,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.offset(x = (-16).dp)
+                )
+            },
+            navigationIcon = {
+                IconButton(onClick = {
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            },
+            actions = {
+                    ToolBarRight(item)
+                    IconButton(onClick = {
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Save,
+                            contentDescription = "Save",
+                            tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
             },
             backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface,
             elevation = 0.dp

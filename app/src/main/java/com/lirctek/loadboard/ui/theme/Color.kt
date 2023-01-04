@@ -1,6 +1,8 @@
 package com.lirctek.loadboard.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.graphics.Color
+import com.vanpra.composematerialdialogs.datetime.date.DatePickerColors
 
 val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)
@@ -143,4 +145,6 @@ val on_secondary_container_night = Color(0xFFC2C7CF)
 //Screen Background Color
 val background_day = Color(0xFFFFFFFF)
 var background_night = Color(0xFF26282B)
+
+val red = Color(0xFFFF0000)
 

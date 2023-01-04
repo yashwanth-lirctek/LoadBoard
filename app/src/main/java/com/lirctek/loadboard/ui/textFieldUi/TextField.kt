@@ -100,5 +100,8 @@ fun myAppTextFieldColors() = TextFieldDefaults.textFieldColors(
     unfocusedLeadingIconColor = MaterialTheme.colorScheme.onTertiaryContainer,
     focusedLeadingIconColor = MaterialTheme.colorScheme.onSecondary,
     focusedIndicatorColor = MaterialTheme.colorScheme.tertiaryContainer,
-    unfocusedIndicatorColor = MaterialTheme.colorScheme.onTertiaryContainer
+    unfocusedIndicatorColor = MaterialTheme.colorScheme.onTertiaryContainer,
+    errorIndicatorColor = Color.Red,
+    errorLeadingIconColor = Color.Red,
+    errorTrailingIconColor =Color.Red
 )

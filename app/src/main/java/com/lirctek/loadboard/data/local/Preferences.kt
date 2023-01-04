@@ -55,6 +55,12 @@ class Preferences {
             insert(this)
         }
 
+    var companyId: Int = 0
+        set(value){
+            field = value
+            insert(this)
+        }
+
     var splitFullLoad: Int = 0
         set(value){
             field = value
