@@ -6,4 +6,5 @@
     <string name="your_offer">Your Offer</string>
     <string name="accept_offer">Accept Offer</string>
     <string name="upload_document">Upload Document</string>
+    <string name="lowest_offer">Lowest Offer</string>
 </resources>
