@@ -65,6 +65,7 @@ fun ToolBarRight(item: LoadBoardDataList) {
                 fontSize = 12.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
+
             )
             Text(
                 text = item.TotalOffers.toString(),
