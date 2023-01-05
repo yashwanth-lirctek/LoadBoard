@@ -11,4 +11,6 @@ object ApiEndpoint {
     const val GET_TRIP_LOAD = "mobile/api/dispatchorder/getTripLoads"
     const val ADD_EDIT_DESCRIPTION = "description/addEditDescription_app"
     const val GET_DESCRIPTION = "Description/getDescriptionsByType_App"
+    const val ADD_EDIT_OFFER ="cooffer/AddEditOffer"
+    const val GET_OFFER_DETAIL ="cooffer/getcoofferdetailsbyId"
 }

@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.lirctek.loadboard.data.reqres.*
 import com.lirctek.loadboard.network.NetworkResponse
 import com.lirctek.loadboard.repository.Repository
-import com.lirctek.loadboard.repository.TestException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,6 +17,8 @@ class OfferEditViewModel @Inject constructor(
 
     var mAddDescription: MutableLiveData<DescriptionResponse> = MutableLiveData()
     var mGetDescription: MutableLiveData<List<DescriptionListResponse>> = MutableLiveData()
+    var mGetOfferResponse: MutableLiveData<OfferDetailsResponse> = MutableLiveData()
+    var descriptions = ArrayList<String>()
 
     init {
         getDescriptions()
@@ -59,9 +60,37 @@ class OfferEditViewModel @Inject constructor(
         }
     }
 
-    fun submitRequest(){}
+    fun submitRequest(addEditOfferRequest: AddEditOfferRequest){
+        viewModelScope.launch {
+            val response = repository.submitOffer(addEditOfferRequest)
+            when (response) {
+                is NetworkResponse.Success -> {
 
-    fun getOfferDetails(){}
+                }
+                is NetworkResponse.Error -> {
+
+                }
+            }
+        }
+    }
+
+    fun getOfferDetails(offerId: Int) {
+        viewModelScope.launch {
+//            val offerDetailsRequest = OfferDetailsRequest(offerId)
+            val offerDetailsRequest = OfferDetailsRequest(109)
+            val response = repository.getOfferDetails(offerDetailsRequest)
+            when (response) {
+                is NetworkResponse.Success -> {
+                  response.body.let {
+                    if(it.size>0) mGetOfferResponse.value =it.get(0)
+                  }
+                }
+                is NetworkResponse.Error -> {
+
+                }
+            }
+        }
+    }
 
     fun getOfferList(){}
 

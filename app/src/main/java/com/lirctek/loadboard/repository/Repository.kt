@@ -1,5 +1,6 @@
 package com.lirctek.loadboard.repository
 
+import com.google.gson.JsonObject
 import com.lirctek.loadboard.data.local.Preferences
 import com.lirctek.loadboard.data.reqres.*
 import com.lirctek.loadboard.network.ApiHelper
@@ -102,6 +103,14 @@ class Repository @Inject constructor(
             Type = "LBOffers"
         )
         return apiHelper.getDescription(getNewToken(), descriptionListRequest)
+    }
+
+    suspend fun submitOffer(request: AddEditOfferRequest): NetworkResponse<JsonObject> {
+        return apiHelper.submitOffer(getNewToken(), request)
+    }
+
+    suspend fun getOfferDetails(request: OfferDetailsRequest): NetworkResponse<List<OfferDetailsResponse>> {
+        return apiHelper.getOfferDetails(getNewToken(), request)
     }
 
     fun getToken(): String {

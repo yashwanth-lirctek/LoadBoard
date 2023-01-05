@@ -3,6 +3,8 @@ package com.lirctek.loadboard.ui.offers.offerDetails
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -10,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.FabPosition
+import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -47,17 +50,29 @@ import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Collections
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
-
     val viewModel = hiltViewModel<OfferEditViewModel>()
+
+    LaunchedEffect(Unit){
+        if(offerItem.Offer_Id>0) viewModel.getOfferDetails(offerItem.Offer_Id)
+    }
+
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope()
 
     val descriptionList = viewModel.mGetDescription.value
+    viewModel.descriptions.clear()
+    viewModel.descriptions.add("Select Description")
+    descriptionList?.forEach { item ->
+        viewModel.descriptions.add(item.Name!!)
+    }
+
+    val list = viewModel.mGetOfferResponse.value?.OfferConditions
 
     var showDialog by remember { mutableStateOf(false) }
 
@@ -152,6 +167,10 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     descriptionRequest.Name = name
                     descriptionRequest.Description = description
                     viewModel.addDescription(descriptionRequest)
+
+                    // Add description to the list
+                    viewModel.descriptions.add(name)
+                    Collections.sort(viewModel.descriptions)
                 }
             )
 
@@ -361,6 +380,29 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
+
+
+            Column(){
+                list?.forEach { entry ->
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = if (entry.DescriptionName != null) entry.DescriptionName!! else "",
+                            fontFamily = fontFamily,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            textAlign = TextAlign.Center,
+                            color = androidx.compose.material3.MaterialTheme.colorScheme.tertiaryContainer,
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(horizontal = 10.dp, vertical = 3.dp)
+                        )
+                    }
+                }
+            }
+
+
+
             Text(
                 text = "Condition".uppercase(),
                 fontFamily = fontFamily,
@@ -372,14 +414,12 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     .fillMaxWidth()
             )
 
-            val descriptions = ArrayList<String>()
-            descriptions.add("Select Description")
-            descriptionList?.forEach { item ->
-            descriptions.add(item.Name!!)
-            }
+//                DropDownWithOutLinedTextField(descriptions) {
+//
+//                }
 
             var selectedOptionText by remember {
-                mutableStateOf(descriptions[0])
+                mutableStateOf(viewModel.descriptions[0])
             }
 
            androidx.compose.material.ExposedDropdownMenuBox(
@@ -404,9 +444,13 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                 DropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
-                    modifier = Modifier.wrapContentWidth().background(MaterialTheme.colorScheme.background).padding(10.dp)
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(10.dp)
+                        .requiredSizeIn(maxHeight = 250.dp)
                 ) {
-                    descriptions.forEach { entry ->
+                    viewModel.descriptions.forEach { entry ->
                         DropdownMenuItem(
                             onClick = {
                                 selectedOptionText = entry
@@ -435,8 +479,8 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                 singleLine = true,
                 autoCorrect = false,
                 isError = proposedPickupError,
-                readOnly = false,
-                trailingIcon = null,
+                readOnly = true,
+                trailingIcon = Icons.Filled.CalendarToday,
                 leadingIcon = null,
                 imageDescription = "Proposed Pickup",
                 modifier = Modifier

@@ -1,5 +1,6 @@
 package com.lirctek.loadboard.network
 
+import com.google.gson.JsonObject
 import com.lirctek.loadboard.data.reqres.*
 import retrofit2.Response
 import retrofit2.http.*
@@ -26,5 +27,11 @@ interface ApiService {
 
     @POST(ApiEndpoint.GET_DESCRIPTION)
     suspend fun getDescription(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: DescriptionListRequest): Response<List<DescriptionListResponse>>
+
+    @POST(ApiEndpoint.ADD_EDIT_OFFER)
+    suspend fun submitOffer(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: AddEditOfferRequest): Response<JsonObject>
+
+    @POST(ApiEndpoint.GET_OFFER_DETAIL)
+    suspend fun getOfferDetails(@Header(ApiEndpoint.AUTHORIZATION) header: String, @Body request: OfferDetailsRequest): Response<List<OfferDetailsResponse>>
 
 }
