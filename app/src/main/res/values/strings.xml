@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">LoadBoard</string>
+    <string name="pick_up">Pick Up</string>
+    <string name="delivery">Delivery</string>
+    <string name="place_offer">Place Offer</string>
+    <string name="your_offer">Your Offer</string>
+    <string name="accept_offer">Accept Offer</string>
+    <string name="upload_document">Upload Document</string>
 </resources>
