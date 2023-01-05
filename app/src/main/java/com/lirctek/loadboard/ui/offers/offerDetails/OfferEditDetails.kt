@@ -1,23 +1,24 @@
 package com.lirctek.loadboard.ui.offers.offerDetails
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.*
 import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.FabPosition
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,7 +36,6 @@ import com.lirctek.loadboard.data.reqres.DescriptionRequest
 import com.lirctek.loadboard.data.reqres.OfferDataList
 import com.lirctek.loadboard.extensions.fontFamily
 import com.lirctek.loadboard.ui.commonUi.floatingButtons.ExtendedFloatingActionButtonUI
-import com.lirctek.loadboard.ui.commonUi.floatingButtons.FloatingActionButtonUI
 import com.lirctek.loadboard.ui.commonUi.textField.TextFieldUI
 import com.lirctek.loadboard.ui.commonUi.textField.textFieldColors
 import com.lirctek.loadboard.ui.dialog.AddDescriptionDialog
@@ -48,6 +48,7 @@ import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
 
@@ -57,13 +58,6 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
     val scope = rememberCoroutineScope()
 
     val descriptionList = viewModel.mGetDescription.value
-
-    var descriptions = ArrayList<String>()
-    descriptions.add("Select Description")
-    descriptions.add("Testing")
-//    descriptionList?.forEach { item ->
-//        descriptions.add(item.Name!!)
-//    }
 
     var showDialog by remember { mutableStateOf(false) }
 
@@ -89,7 +83,7 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
     }
 
     var condition by remember {
-        mutableStateOf(descriptions[0])
+        mutableStateOf("")
     }
     var conditionError by remember {
         mutableStateOf(false)
@@ -275,6 +269,7 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                 keyboardType = KeyboardType.Number,
                 modifier = Modifier
                     .padding(horizontal = 30.dp)
+                    .fillMaxWidth()
                     .wrapContentWidth(),
                 onValueChanged = {
                     offerAmount = it
@@ -377,56 +372,47 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     .fillMaxWidth()
             )
 
-            ExposedDropdownMenuBox(
+            val descriptions = ArrayList<String>()
+            descriptions.add("Select Description")
+            descriptionList?.forEach { item ->
+            descriptions.add(item.Name!!)
+            }
+
+            var selectedOptionText by remember {
+                mutableStateOf(descriptions[0])
+            }
+
+           androidx.compose.material.ExposedDropdownMenuBox(
                 expanded = expanded,
                 onExpandedChange = {
                     expanded = !expanded
-                }
+                },
+               modifier = Modifier.padding(10.dp)
             ) {
-//                TextFieldUI(
-//                    value = condition,
-//                    singleLine = false,
-//                    autoCorrect = true,
-//                    isError = conditionError,
-//                    readOnly = true,
-//                    trailingIcon = Icons.Filled.ArrowDropDown,
-//                    leadingIcon = null,
-//                    imageDescription = "Condition",
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(10.dp),
-//                    onValueChanged = {
-//                        condition = it
-//                        conditionError = false
-//                    },
-//                    onIconClick = {}
-//                )
-                
-                
                 TextField(
-                    value = condition,
-                    onValueChange = {},
+                    value = selectedOptionText,
                     readOnly = true,
-                    trailingIcon = {
-                       androidx.compose.material3.ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) 
+                    onValueChange = {
+                        selectedOptionText = it
                     },
-                    colors = textFieldColors(),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp)
+                    modifier = Modifier.fillMaxWidth(),
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                    },
+                    colors = textFieldColors()
                 )
-
-                ExposedDropdownMenuBox(expanded = expanded,
-                    onExpandedChange = {expanded = false}) {
-
-                }
-
-                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier.wrapContentWidth().background(MaterialTheme.colorScheme.background).padding(10.dp)
+                ) {
                     descriptions.forEach { entry ->
-                        androidx.compose.material.DropdownMenuItem(onClick = {
-                            condition = entry
-                            expanded = false
-                        }) {
+                        DropdownMenuItem(
+                            onClick = {
+                                selectedOptionText = entry
+                                expanded = false
+                            },
+                        ) {
                             Text(text = entry)
                         }
                     }
@@ -472,7 +458,7 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditTextFieldWithSpinner(onSelect: (value: String) -> Unit) {
     val documentsList = listOf(
@@ -489,7 +475,7 @@ fun EditTextFieldWithSpinner(onSelect: (value: String) -> Unit) {
         mutableStateOf(documentsList[0])
     }
 
-    androidx.compose.material.ExposedDropdownMenuBox(
+    ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = {
             expanded = !expanded
@@ -512,15 +498,15 @@ fun EditTextFieldWithSpinner(onSelect: (value: String) -> Unit) {
                 color = MaterialTheme.colorScheme.tertiaryContainer
             ),
             trailingIcon = {
-                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                androidx.compose.material3.ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             }
         )
-        androidx.compose.material.DropdownMenu(
+        DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
             documentsList.forEach { entry ->
-                androidx.compose.material.DropdownMenuItem(
+                DropdownMenuItem(
                     onClick = {
                         onSelect(entry)
                         selectedOptionText = entry
