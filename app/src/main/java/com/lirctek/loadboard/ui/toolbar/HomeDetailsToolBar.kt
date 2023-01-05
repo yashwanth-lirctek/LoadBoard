@@ -7,11 +7,13 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.lirctek.loadboard.R
 import com.lirctek.loadboard.data.reqres.LoadBoardDataList
 import com.lirctek.loadboard.data.reqres.OfferDataList
 import com.lirctek.loadboard.extensions.fontFamily
@@ -79,7 +81,7 @@ fun ToolBarRight(item: LoadBoardDataList) {
             modifier = Modifier.width(90.dp)
         ){
             Text(
-                text = "Lowest Offer".uppercase(),
+                text = stringResource(R.string.lowest_offer).uppercase(),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
                 color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant,
