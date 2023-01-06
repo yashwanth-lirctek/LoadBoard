@@ -16,6 +16,7 @@ import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material3.*
@@ -65,6 +66,8 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope()
 
+    val list = viewModel.mGetOfferResponse.value?.OfferConditions
+
     val descriptionList = viewModel.mGetDescription.value
     viewModel.descriptions.clear()
     viewModel.descriptions.add("Select Description")
@@ -72,7 +75,9 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
         viewModel.descriptions.add(item.Name!!)
     }
 
-    val list = viewModel.mGetOfferResponse.value?.OfferConditions
+    var selectedOptionText by remember {
+        mutableStateOf(viewModel.descriptions[0])
+    }
 
     var showDialog by remember { mutableStateOf(false) }
 
@@ -414,14 +419,6 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     .fillMaxWidth()
             )
 
-//                DropDownWithOutLinedTextField(descriptions) {
-//
-//                }
-
-            var selectedOptionText by remember {
-                mutableStateOf(viewModel.descriptions[0])
-            }
-
            androidx.compose.material.ExposedDropdownMenuBox(
                 expanded = expanded,
                 onExpandedChange = {
@@ -441,6 +438,7 @@ fun OfferEditUi(navController: NavHostController, offerItem: OfferDataList){
                     },
                     colors = textFieldColors()
                 )
+
                 DropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
